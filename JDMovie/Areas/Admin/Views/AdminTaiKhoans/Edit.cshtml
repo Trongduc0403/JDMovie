@@ -1,0 +1,74 @@
+﻿@model JDMovie.Models.TaiKhoan
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-12">
+			<div class="main__title">
+				<h2>Sửa Tài Khoản</h2>
+			</div>
+		</div>			
+		<div class="tab-content" id="myTabContent">
+			<div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="1-tab">
+				<div class="col-12">
+					<div class="row">
+						<div class="col-12 col-lg-6">
+							<form asp-action="Edit" class="profile__form">										
+								<div class="row">
+									<div class="col-12">
+										<h4 class="profile__title">Thông Tin Tài Khoản</h4>
+									</div>
+									<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+									<input type="hidden" asp-for="Idtk" />
+									<div class="col-12 col-md-6 col-lg-12 col-xl-6">
+										<div class="profile__group">
+											<label class="profile__label" for="username">Email</label>
+											<input class="profile__input"  asp-for="Email">
+											
+										</div>
+									</div>
+									<div class="col-12 col-md-6 col-lg-12 col-xl-6">
+										<div class="profile__group">
+											<label class="profile__label" for="firstname">Mật Khẩu</label>
+											<input class="profile__input" type="password" asp-for="MatKhau">
+											
+										</div>
+										
+									</div>
+									<div class="col-12 col-md-6 col-lg-12 col-xl-6">
+										<div class="profile__group">
+											<label class="profile__label" for="firstname">Họ tên</label>
+											<input class="profile__input" asp-for="HoTen">
+											
+										</div>
+									</div>
+
+									<div class="col-12 col-md-6 col-lg-12 col-xl-6">
+										<div class="profile__group">
+											<label class="profile__label" for="subscription">Quyền</label>
+											<select class="js-example-basic-single" id="subscription" asp-for="Quyen">
+												<option value="True">Quản Trị Viên</option>
+												<option value="False">Người Dùng</option>														
+											</select>													
+										</div>
+									</div>
+									<div class="col-12">											
+										<button class="profile__btn" type="submit" value="Save">Sửa</button>	
+										<button class="profile__btn" asp-controller="AdminTaiKhoans" asp-action="Index">Trở Về</button>							
+									</div>					
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>	
+			</div>				
+		</div>			
+	</div>
+</div>

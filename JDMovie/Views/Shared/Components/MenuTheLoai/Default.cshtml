@@ -1,0 +1,14 @@
+﻿<li class="header__nav-item">
+    <a class="dropdown-toggle header__nav-link" href="#"
+        role="button" id="dropdownMenuCatalog" data-toggle="dropdown" 
+        aria-haspopup="true" aria-expanded="false" >Thể Loại</a>
+
+
+    <ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuCatalog">
+        @foreach (var item in Model)
+        {
+            <li><a asp-controller="TimKiem" asp-action="TheLoai" asp-route-id="@item.IdtheLoai" >@item.TenTheLoai</a></li>
+
+        }                                
+    </ul>
+</li>

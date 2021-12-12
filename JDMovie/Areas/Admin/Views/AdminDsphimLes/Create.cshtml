@@ -1,0 +1,68 @@
+﻿@model JDMovie.Models.DsphimLe
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="container-fluid">
+			<div class="row">
+				<!-- main title -->
+				<div class="col-12">
+					<div class="main__title">
+						<h2>Thêm Phim</h2>
+					</div>
+				</div>
+				<div class="col-12">
+					<form asp-action="Create" class="form"enctype="multipart/form-data">
+						<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+						<div class="row">
+							<div class="col-12 col-md-5 form__cover">
+								<div class="row">
+									<div class="col-12 col-sm-6 col-md-12">
+										<div class="form__img">
+											<label asp-for="ImageFile" for="form__img-upload">Poster Phim (270 x 400)</label>
+											<input asp-for="ImageFile" id="form__img-upload" type="file" accept=".png, .jpg, .jpeg">
+											<img id="form__img" src="#" alt=" ">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-12 col-md-7 form__content">
+								<div class="row">
+									<div class="col-12">
+										<input  asp-for="TenPhim" type="text" class="form__input" placeholder="Tên Phim">
+									</div>
+
+									<div class="col-12">
+										<input asp-for="NoiDung" type="text" class="form__textarea" placeholder="Nội Dung" >
+									</div>
+
+									<div class="col-12 col-sm-6 col-lg-3">
+										<select asp-for="NamPhatHanh" class="form__input" asp-items="ViewBag.NamPhatHanh"></select>
+									</div>
+
+									<div class="col-12 col-sm-6 col-lg-3">
+										<select asp-for="MaQg" class="form__input"  asp-items="ViewBag.MaQg"></select>
+									</div>								
+									<div class="col-12 col-sm-6 col-lg-3">
+										<input asp-for="ThoiLuong" type="text" class="form__input" placeholder="Thời Lượng">
+									</div>
+
+								
+									<div class="col-12 col-lg-6">
+										<select asp-for="TheLoaiPhimLes" class="js-example-basic-multiple" id="genre" multiple="multiple" asp-items="ViewBag.TheLoai"></select>					
+										
+									</div>	
+									<div class="col-12 col-lg-6">
+										<input asp-for="Link" type="text" class="form__input" placeholder="Link Phim">
+									</div>
+									<button class="form__btn" type="submit" value="Create" >Thêm Phim</button> || 
+									<button class="form__btn" asp-controller="AdminDsPhimLes" asp-action="Index">Trở Về</button>
+								</div>
+							</div>																			
+						</div>
+					</form>
+				</div>
+			</div>
+</div>
+		

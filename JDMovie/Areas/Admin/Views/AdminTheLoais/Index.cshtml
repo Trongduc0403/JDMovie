@@ -1,0 +1,62 @@
+﻿@model IEnumerable<JDMovie.Models.TheLoai>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-12">
+			<div class="main__title">
+				<h2>Thể Loại Phim</h2>
+				<a asp-action="Create" class="main__title-link">Thêm Thể Loại</a>
+				<span class="main__title-stat">
+				</span>
+				<div class="main__title-wrap">						
+				</div>
+			</div>
+		</div>
+		<div class="col-12">
+			<div class="main__table-wrap">
+				<table class="main__table">
+					<thead>
+						<tr>
+									
+							<th><div class="main__table-text">Tên Thể Loại</div></th>																	
+						</tr>
+					</thead>
+
+					<tbody>
+						@if(Model != null)
+						{
+							@foreach (var item in Model) 
+						{
+						<tr>
+									
+							<td>
+								<div class="main__table-text">@Html.DisplayFor(modelItem => item.TenTheLoai)</div>
+										
+							</td>
+								
+							<td>
+								<div class="main__table-btns">
+											
+									<a class="main__table-btn main__table-btn--edit" asp-area="Admin" asp-controller="AdminTheLoais" asp-action="Edit" asp-route-id="@item.IdtheLoai" >
+										<i class="icon ion-ios-create"></i>
+									</a>
+									<a class="main__table-btn main__table-btn--delete" asp-area="Admin" asp-controller="AdminTheLoais" asp-action="Delete" asp-route-id="@item.IdtheLoai"  >
+										<i class="icon ion-ios-trash"></i>
+									</a>
+											
+								</div>
+							</td>
+						</tr>								
+						}
+						}																								
+					</tbody>
+				</table>
+			</div>
+		</div>	
+	</div>
+</div>

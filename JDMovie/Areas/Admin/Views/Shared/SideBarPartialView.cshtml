@@ -1,0 +1,58 @@
+﻿<div class="sidebar">
+		<!-- sidebar logo -->
+		 <a asp-controller="Home" asp-action="Index">
+                 <img style="width:280px;height:100px;" src="~/Assets/img/logo6.png" alt="">
+             </a>
+		<!-- end sidebar logo -->
+		
+		<!-- sidebar user -->
+		<div class="sidebar__user">
+			<div class="sidebar__user-img">
+				<img src="~/AdminAssets/img/user.svg" alt="">
+			</div>
+
+			<div class="sidebar__user-title">
+				<span>Admin</span>
+				<p>Joyce</p>
+			</div>
+
+			<button class="sidebar__user-btn" type="button">
+				<i class="icon ion-ios-log-out"></i>
+			</button>
+		</div>
+		<!-- end sidebar user -->
+
+		<!-- sidebar nav -->
+		<ul class="sidebar__nav">
+			<li class="sidebar__nav-item">
+				<a asp-area="Admin" asp-controller="Home" asp-action="Index" class="sidebar__nav-link sidebar__nav-link--active"><i class="icon ion-ios-keypad"></i> Trang Chủ</a>
+			</li>
+			<li class="dropdown sidebar__nav-item">
+				<a class="dropdown-toggle sidebar__nav-link" href="#" role="button" id="dropdownMenuMore" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon ion-ios-copy"></i> Danh Mục</a>
+
+				<ul class="dropdown-menu sidebar__dropdown-menu scrollbar-dropdown" aria-labelledby="dropdownMenuMore">
+					<li><a asp-area="Admin" asp-controller="AdminTintucphims" asp-action="Index">Tin Tức</a></li>					
+					<li><a asp-area="Admin" asp-controller="AdminTheLoais" asp-action="Index">Thể Loại</a></li>
+					<li><a asp-area="Admin" asp-controller="TheLoaiPhimLes" asp-action="Index">Thể Loại Phim Lẻ</a></li>
+					
+					<li><a asp-area="Admin" asp-controller="AdminQuocGiums" asp-action="Index">Quốc Gia</a></li>
+					<li><a asp-area="Admin" asp-controller="AdminNams" asp-action="Index">Năm Phát Hành</a></li>					
+				</ul>
+			</li>
+			<li class="sidebar__nav-item">
+				<a  class="dropdown-toggle sidebar__nav-link" href="#" role="button" id="dropdownMenuMore" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon ion-ios-film"></i> Danh Sách Phim</a>
+				<ul class="dropdown-menu sidebar__dropdown-menu scrollbar-dropdown" aria-labelledby="dropdownMenuMore">
+					<li><a asp-area="Admin" asp-controller="AdminDsphimBoes" asp-action="Index">DS Phim Bộ</a></li>
+					<li><a asp-area="Admin" asp-controller="AdminDsphimles" asp-action="Index">DS Phim Lẻ</a></li>
+					<li><a asp-area="Admin" asp-controller="AdminDsphimles" asp-action="Index">DS Phim Sắp Chiếu</a></li>
+				</ul>
+			</li>
+		
+			<li class="sidebar__nav-item">
+				<a asp-area="Admin" asp-controller="AdminTaiKhoans" asp-action="Index" class="sidebar__nav-link"><i class="icon ion-ios-contacts"></i> Tài Khoản</a>
+			</li>
+		</ul>
+	
+		
+		
+	</div>

@@ -1,0 +1,52 @@
+﻿@model JDMovie.Models.DsphimLe
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-12">
+			<div class="main__title">
+				<h2>Xoá Phim </h2>
+				<div class="main__title-wrap">												
+				</div>
+				</div>
+			</div>
+		</div>
+		<form asp-action="Delete">
+		<div class="col-6 col-sm-12 col-lg-6">
+			<div class="card card--list">
+				<div class="row">
+					<div class="col-12 col-sm-4">
+						<div class="card__cover">
+							<img src="@("~/img/" + @Model.Img)" asp-append-version="true" width="160px" height="230px">
+							<a href="#" class="card__play">
+								<i class="icon ion-ios-play"></i>
+							</a>
+						</div>
+					</div>
+					<div class="col-12 col-sm-8" >
+						<div class="card__content"  >
+							<h3 class="card__title" style=" color: #ff5860;font-size: 30px;" ><a>@Html.DisplayFor(model => model.TenPhim)</a></h3>												
+							<div class="card__wrap" style=" color: white;">													
+								<ul class="card__list">
+									<li>Quốc Gia: @Html.DisplayFor(model => model.MaQgNavigation.TenQg)</li>
+									<li>Năm Phát Hành: @Html.DisplayFor(model => model.NamPhatHanhNavigation.TenNam)</li>
+																											
+								</ul>					
+							</div>	
+						<div style="width:800px;color:white;text-align:justify;">							
+							Nội Dung: @Html.DisplayFor(model => model.NoiDung)							
+						</div>     
+                            <input type="submit" value="Xoá" class="form__btn" />
+                            <a class="form__btn" asp-action="Index">Trở Về</a>  
+					</div>					
+				</div>
+			</div>
+		</div>
+	</div>
+	</form>
+</div>

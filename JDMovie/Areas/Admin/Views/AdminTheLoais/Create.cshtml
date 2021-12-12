@@ -1,0 +1,45 @@
+﻿@model JDMovie.Models.TheLoai
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-12">
+			<div class="main__title">
+				<h2>Thêm Thể Loại</h2>
+			</div>
+		</div>			
+		<div class="tab-content" id="myTabContent">
+			<div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="1-tab">
+				<div class="col-12">
+					<div class="row">
+						<div class="col-12 col-lg-6">
+							<form asp-action="Create" class="profile__form">										
+								<div class="row">
+									<div class="col-12">
+										<h4 class="profile__title">Thông Tin Thể Loại</h4>
+									</div>
+									<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+									<div class="col-12 col-md-6 col-lg-12 col-xl-6">
+										<div class="profile__group">
+											<label class="profile__label" for="username">Tên Thể Loại</label>
+											<input class="profile__input"  asp-for="TenTheLoai">
+											 <span asp-validation-for="TenTheLoai" class="text-danger"></span>           
+										</div>
+									</div>								
+									<div class="col-12">											
+										<button class="profile__btn" type="submit" value="Create">Thêm</button>	
+										<button class="profile__btn" asp-controller="AdminTheLoais" asp-action="Index">Trở Về</button>							
+									</div>					
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>	
+			</div>				
+		</div>			
+	</div>
+</div>

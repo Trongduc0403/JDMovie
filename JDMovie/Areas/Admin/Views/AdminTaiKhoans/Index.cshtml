@@ -1,0 +1,79 @@
+﻿@model IEnumerable<JDMovie.Models.TaiKhoan>
+
+@{
+ViewData["Title"] = "Index";
+Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-12">
+			<div class="main__title">
+				<h2>Tài Khoản</h2>
+				<a asp-action="Create" class="main__title-link">Thêm Tài Khoản</a>
+				<span class="main__title-stat">
+					<!--total-->
+				</span>
+				<div class="main__title-wrap">		
+				</div>
+			</div>
+		</div>
+		<div class="col-12">
+			<div class="main__table-wrap">
+				<table class="main__table">
+					<thead>
+						<tr>
+							<th><div class="main__table-text">Tên Tài Khoản</div></th>
+							<th><div class="main__table-text">Họ Tên</div></th>
+							<th><div class="main__table-text">Mật Khẩu</div></th>
+							<th><div class="main__table-text">Quyền</div></th>									
+						</tr>
+					</thead>
+					<tbody>
+						@if(Model != null)
+						{											
+						@foreach (var item in Model) {
+							<tr>
+							<td>
+								<div class="main__table-text">@Html.DisplayFor(modelItem => item.Email)</div>
+										
+							</td>
+							<td>
+								<div class="main__table-text">@Html.DisplayFor(modelItem => item.HoTen)</div>
+										
+							</td>
+							<td>
+								<div type="password" class="main__table-text">@Html.DisplayFor(modelItem => item.MatKhau)</div>
+										
+							</td>
+							<td>
+								@if(item.Quyen == true )
+								{
+								<div class="main__table-text">Quản Trị Viên</div>
+								}
+								else
+								{
+									<div class="main__table-text">Người Dùng</div>
+								}																														
+							</td>
+									
+							<td>
+								<div class="main__table-btns">
+											
+									<a asp-action="Edit" asp-route-id="@item.Idtk" class="main__table-btn main__table-btn--edit">
+										<i class="icon ion-ios-create"></i>
+									</a>
+									<a asp-action="Delete" asp-route-id="@item.Idtk" class="main__table-btn main__table-btn--delete ">
+										<i class="icon ion-ios-trash"></i>
+									</a>
+								</div>
+							</td>
+						</tr>								
+						}
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>		
+</div>
+</div>

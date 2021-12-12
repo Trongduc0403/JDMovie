@@ -1,0 +1,98 @@
+﻿
+@using PagedList.Core.Mvc;
+@model PagedList.Core.IPagedList<JDMovie.Models.Tintucphim>
+
+@{
+	ViewData["Title"] = "TinTucPhim" + ViewBag.CurrentPage;
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	int PageCurrent = ViewBag.CurrentPage;
+	int PageNext = PageCurrent + 1;
+}
+
+	<!-- page title -->
+	<section class="section section--first section--bg" data-bg="img/section/section.jpg">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="section__wrap">
+						<h2 class="section__title">Tin Tức</h2>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- end page title -->
+
+<<div class="catalog">
+		<div class="container">
+			<div class="row">
+				<!-- card -->
+			@if (Model != null && Model.Count() > 0 )
+			{
+				@foreach (var item in Model)
+				{
+					string url = "";
+					<div class="col-6 col-sm-12 col-lg-6">
+						<div class="card card--list">
+							<div class="row">
+								<div class="col-12 col-sm-4">
+									<div class="card__cover" >
+										<img src="@("~/img/" +item.Hinhanh)" asp-append-version="true " />
+										<a asp-action="Details" asp-route-id="@item.Idtintuc" class="card__play">
+										
+										</a>
+									</div>
+								</div>
+
+								<div class="col-12 col-sm-8">
+									<div class="card__content">
+										<br>
+										<h1 class="card__title"><a asp-action="Details" asp-route-id="@item.Idtintuc"> @Html.DisplayFor(modelItem => item.Tieude)   </a></h1>									
+										<div class="card__wrap">
+											<span class="card__rate">@Html.DisplayFor(modelItem => item.Ngaycapnhat)</span>								
+										</div>
+
+										<div class="card__description">
+											<p>@Html.DisplayFor(modelItem => item.Noidung)</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- end card -->
+
+			
+				
+				}
+				}
+
+
+				<!-- paginator -->
+				<div class="col-12">
+					<ul class="paginator paginator--list">
+						@if(PageCurrent > 1)
+					{
+						<li class="paginator__item paginator__item--prev">
+							<a href="/TinTuc/Index?page=@(PageCurrent-1)"><i class="icon ion-ios-arrow-back"></i></a>
+						</li>
+					}
+					else
+					{
+						<li class="paginator__item paginator__item--prev">
+							<a href="/TinTuc/Index"><i class="icon ion-ios-arrow-back"></i></a>
+						</li>
+					}				
+						<li class="paginator__item"><a href="/TinTuc/Index?page=@PageCurrent">@PageCurrent</a></li>												
+						<li class="paginator__item"><a href="/TinTuc/Index?page=@PageNext">@PageNext</a></li>
+						<li class="paginator__item paginator__item--next">
+							<a href="/TinTuc/Index?page=@PageNext"><i class="icon ion-ios-arrow-forward"></i></a>
+						</li>
+
+					</ul>
+				</div>
+				<!-- end paginator -->
+			</div>
+		</div>
+	</div>

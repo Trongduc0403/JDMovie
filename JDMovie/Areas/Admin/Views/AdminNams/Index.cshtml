@@ -1,0 +1,87 @@
+﻿@model IEnumerable<JDMovie.Models.Nam>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+		<div class="container-fluid">
+			<div class="row">
+				<!-- main title -->
+				<div class="col-12">
+					<div class="main__title">
+						<h2>Năm Phát Hành</h2>
+						<a asp-action="Create" class="main__title-link">Thêm Năm</a>
+						<span class="main__title-stat">
+							<!--total-->
+						</span>
+						<div class="main__title-wrap">						
+						</div>
+					</div>
+				</div>
+				<!-- end main title -->
+				<!-- users -->
+				<div class="col-12">
+					<div class="main__table-wrap">
+						<table class="main__table">
+							<thead>
+								<tr>
+									
+									<th><div class="main__table-text">Năm</div></th>																	
+								</tr>
+							</thead>
+
+							<tbody>
+								@if(Model != null)
+								{
+									@foreach (var item in Model) 
+								{
+								<tr>
+									
+									<td>
+										<div class="main__table-text">@Html.DisplayFor(modelItem => item.TenNam)</div>
+										
+									</td>
+								
+									<td>
+										<div class="main__table-btns">
+											
+											<a class="main__table-btn main__table-btn--edit" asp-area="Admin" asp-controller="AdminNams" asp-action="Edit" asp-route-id="@item.MaNam" >
+												<i class="icon ion-ios-create"></i>
+											</a>
+											<a class="main__table-btn main__table-btn--delete" asp-area="Admin" asp-controller="AdminNams" asp-action="Delete" asp-route-id="@item.MaNam"  >
+												<i class="icon ion-ios-trash"></i>
+											</a>
+											
+										</div>
+									</td>
+								</tr>								
+								}
+								}																								
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<!-- end users -->
+			@*
+				<div class="col-12">
+					<div class="paginator-wrap">
+						<span>10 from 14 452</span>
+
+						<ul class="paginator">
+							<li class="paginator__item paginator__item--prev">
+								<a href="#"><i class="icon ion-ios-arrow-back"></i></a>
+							</li>
+							<li class="paginator__item"><a href="#">1</a></li>
+							<li class="paginator__item paginator__item--active"><a href="#">2</a></li>
+							<li class="paginator__item"><a href="#">3</a></li>
+							<li class="paginator__item"><a href="#">4</a></li>
+							<li class="paginator__item paginator__item--next">
+								<a href="#"><i class="icon ion-ios-arrow-forward"></i></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			*@		
+			</div>
+		</div>

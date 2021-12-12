@@ -1,0 +1,49 @@
+﻿@model JDMovie.Models.ViewModels.LoginViewModel
+@{
+    ViewData["Title"] = "DangNhap";
+}
+
+
+<div class="sign section--bg" data-bg="img/section/section.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="sign__content">
+                    <!-- authorization form -->
+                    <form class="sign__form" method="post" asp-action="DangNhap" asp-controller="Account">
+                        <a asp-controller="Home" asp-action="Index" class="sign__logo">
+                            <img src="~/Assets/img/logo.svg" alt="">
+                        </a>
+
+                        <div class="sign__group">
+                            <input type="text" class="sign__input" asp-for="Email" placeholder="Địa chỉ Email"> <br />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="sign__group">
+                            <input type="password" class="sign__input" asp-for="Password" placeholder="Mật khẩu"> <br />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="sign__group sign__group--checkbox">
+                            <input id="remember" name="remember" asp-for="RememberMe" type="checkbox" checked="checked">
+                            <label for="remember" asp-for="RememberMe">Ghi nhớ đăng nhập</label>
+                        </div>
+
+                        <button class="sign__btn" type="submit">Đăng nhập</button>
+                        @*<input class="sign__btn" type="submit" value="Sign in" />*@
+
+                        <span class="sign__text">Bạn chưa có tài khoản? <a asp-action="DangKy">Đăng ký!</a></span>
+
+                        <span class="sign__text"><a href="#">Quên mật khẩu?</a></span>
+                    </form>
+                    <!-- end authorization form -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

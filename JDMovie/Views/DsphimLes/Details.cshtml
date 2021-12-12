@@ -1,0 +1,55 @@
+﻿@model JDMovie.Models.DsphimLe
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section  class="section details">
+	<div class="details__bg" data-bg="~/Assets/img/home/home__bg.jpg"></div>
+		<div class="container">	
+			<div class="row">		
+				<div class="col-12" >							
+					<h1 class="details__title"> @Html.DisplayFor(model => model.TenPhim) </h1>
+				</div>
+				<div class="col-12 col-xl-6">
+					<div class="card card--details">
+						<div class="row">
+						<div class="col-12 col-sm-4 col-md-4 col-lg-3 col-xl-5">
+								<div class="card__cover">
+								<img src="@("~/img/" + @Model.Img)" asp-append-version="true" />
+								</div>
+							</div>
+						<div class="col-12 col-sm-8 col-md-8 col-lg-9 col-xl-7">
+								<div class="card__content">
+								@*	<div class="card__wrap">
+										<span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>
+
+										<ul class="card__list">
+											<li>HD</li>
+											<li>16+</li>
+										</ul>
+									</div>
+								*@
+									<ul class="card__meta">
+										<li><span>Thể Loại:</span> <a href="#">Action</a>
+											<a href="#">Triler</a></li>
+										<li><span>Năm Phát Hành:</span> @Html.DisplayFor(model => model.MaQgNavigation.TenQg)</li>
+										<li><span>Quốc Gia:</span> @Html.DisplayFor(model => model.NamPhatHanhNavigation.TenNam)</li>
+										@*<li><span>Country:</span> <a href="#">USA</a> </li>*@
+									</ul>
+
+									<div class="card__description card__description--details">
+										Nội Dung: @Html.DisplayFor(model => model.NoiDung)
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-xl-6">							
+					<iframe width="560" height="315" src="@Model.Link" frameborder="0" allow="autoplay" allowfullscreen></iframe>
+				</div>		
+			</div>	
+		</div>
+</section>

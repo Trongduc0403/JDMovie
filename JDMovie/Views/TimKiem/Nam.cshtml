@@ -1,0 +1,52 @@
+﻿
+
+@{
+	ViewData["Title"] = "Index" ;
+	Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+
+<section class="section section--first section--bg" data-bg="~/Assets/img/section/section.jpg">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="section__wrap">
+					<h2 style="font-size: 50px;color:white; ">Kết quả tìm kiếm</h2>	<br />
+							
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+
+<div class="catalog">
+	<div class="container">
+		<div class="row">
+
+				@foreach (var item in ViewBag.phimnam)
+				{
+					
+				<div class="col-6 col-sm-4 col-lg-3 ">
+						<div class="card">
+							<div class="card__cover">
+								<img style="width:240px;height:355px;"  src="@("~/img/" +item.Img)" asp-append-version="true" />
+								<a asp-controller="@item.controller" asp-action="Details" asp-route-id="@item.Id" class="card__play">
+									<i class="icon ion-ios-play"></i>
+								</a>
+							</div>
+							<div class="card__content">
+								<h3 ><a style=" color: #ff5860;font-size: 25px;overflow: hidden;-webkit-line-clamp:1;display: -webkit-box;-webkit-box-orient: vertical;" asp-controller="@item.controller" asp-action="Details" asp-route-id="@item.Id">@item.TenPhim</a></h3>
+							</div>
+						</div>
+					</div>
+				}
+
+				
+			
+		</div>
+	</div>
+</div>
+

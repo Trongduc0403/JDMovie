@@ -1,0 +1,55 @@
+﻿@model JDMovie.Models.ViewModels.RegisterViewModel
+@{
+    ViewBag.Title = "DangKy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="sign section--bg" data-bg="img/section/section.jpg">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="sign__content">
+						<!-- registration form -->
+                    <form method="post" asp-action="DangKy" asp-controller="Account" class="sign__form">
+                        <a href="index.html" class="sign__logo">
+                            <img src="~/Assets/img/logo.svg" alt="">
+                        </a>
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <div class="sign__group">
+                            <input type="text" class="sign__input" asp-for="Email" placeholder="Địa chỉ Email"> <br />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="sign__group">
+                            <input type="text" class="sign__input" asp-for="Name" placeholder="Họ và tên"> <br />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="sign__group">
+                            <input type="password" class="sign__input" asp-for="Password" placeholder="Mật Khẩu"> <br />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="sign__group">
+                            <input asp-for="ConfirmPassword" type="password" class="sign__input" placeholder="Nhập Lại Mật Khẩu"> <br />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+
+                        <div class="sign__group sign__group--checkbox">
+                            <input id="remember" name="remember" type="checkbox" checked="checked">
+                            <label for="remember">Tôi đồng ý với <a href="#">Chính sách quyền riêng tư</a></label>
+                        </div>
+
+                        <button class="sign__btn" type="submit">Đăng ký</button>
+
+                        <span class="sign__text">Bạn đã có tài khoản? <a asp-action="DangNhap">Đăng nhập!</a></span>
+                    </form>
+                    <!-- registration form -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+@section Scripts{ 
+<partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,87 @@
+﻿
+
+<header class="header">
+    <div class="header__wrap">
+        <div class="container" style="padding-left: 13px; padding-right: 13px">
+            <div class="row">
+                <div class="col-12">
+                    <div class="header__content" >
+                        <!-- header logo -->
+                        <a asp-controller="Home" asp-action="Index">
+                            <img style="width:240px;height:90px;" src="~/Assets/img/logo6.png" alt="">
+                        </a>
+                        <!-- end header logo -->
+                        <!-- header nav -->
+                        <ul class="header__nav">
+                            <!-- dropdown -->
+                            <li class="header__nav-item">
+                                <a class="dropdown-toggle header__nav-link" role="button" id="dropdownMenuCatalog" asp-controller="Home" asp-action="Index" >Trang Chủ</a>
+                            </li>
+                            <!-- end dropdown -->
+
+                            @await Component.InvokeAsync("MenuTheLoai")
+                            @await Component.InvokeAsync("MenuNam")
+                            @await Component.InvokeAsync("MenuQuocGia")
+
+                            <li class="header__nav-item">
+                                <a asp-controller="Tintucphims" asp-action="Index" class="header__nav-link">Tin Tức</a>
+                            </li>
+                            
+                            <!-- dropdown -->
+                            <li class="dropdown header__nav-item">
+                                <a class="dropdown-toggle header__nav-link header__nav-link--more" href="#" 
+                                   role="button" id="dropdownMenuMore" data-toggle="dropdown" 
+                                   aria-haspopup="true" aria-expanded="false"><i class="icon ion-ios-more"></i></a>
+
+                                <ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuMore">
+                                    <li><a asp-controller="DsPhimLes" asp-action="Index">Phim Lẻ</a></li>
+                                    <li><a asp-controller="DsPhimBoes" asp-action="Index">Phim Bộ</a></li>
+                                    <li><a asp-controller="Home" asp-action="About">Giới thiệu</a></li>
+                                </ul>
+                            </li>
+                            <!-- end dropdown -->
+                        </ul>
+                        <!-- end header nav -->
+                        <!-- header auth -->
+                        <div class="header__auth">
+                            <button class="header__search-btn" type="button">
+                                <i class="icon ion-ios-search"></i>
+                            </button>
+
+                            @*<a class="header__sign-in" asp-controller="Account" asp-action="DangNhap" >
+                                <i class="icon ion-ios-log-in"></i>
+                                <span>Đăng Nhập</span>
+                            </a>*@
+
+                            @await Html.PartialAsync("_LoginPartial.cshtml")
+
+                        </div>
+                        <!-- end header auth -->
+                        <!-- header menu btn -->
+                        <button class="header__btn" type="button">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                        <!-- end header menu btn -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ <!-- header search -->
+        <form asp-action = "Search" asp-controller = "Home" method="get" class="header__search">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="header__search-content">
+                            <input type="search" placeholder="Tìm kiếm một bộ phim, phim truyền hình mà bạn đang tìm kiếm" value="@ViewData["timkiemphim"]" name="searchphim">
+
+                            <button type="submit">Tìm kiếm</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- end header search -->
+</header>

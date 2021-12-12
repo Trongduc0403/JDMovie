@@ -1,0 +1,12 @@
+Thay đổi database:
+1. Sửa lại bảng tài khoản thay tên tài khoản thành email, thêm cột họ tên
+2. Thêm 2 bảng Thể loại phim bộ, thể loại phim lẻ
+3. Xóa cột thể loại trong 2 bảng DSPhimbo, DSPhimLe
+Code:
+AccountController
+_LoginPartial
+_HeaderPartial
+View DangKy, DangNhap
+AdminAccountController
+ViewAdminTaikhoan
+Thêm mới TheLoaiPhimLeController
