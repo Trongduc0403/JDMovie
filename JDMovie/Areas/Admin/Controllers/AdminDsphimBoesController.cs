@@ -56,8 +56,8 @@ namespace JDMovie.Areas.Admin.Controllers
         public IActionResult Create()
         {
             ViewData["IdtheLoai"] = new SelectList(_context.TheLoais, "IdtheLoai", "IdtheLoai");
-            ViewData["MaQg"] = new SelectList(_context.QuocGia, "MaQg", "TenQg");
-            ViewData["NamPhatHanh"] = new SelectList(_context.Nams, "MaNam", "TenNam");
+            ViewData["MaQg"] = new SelectList(_context.QuocGia, nameof(QuocGium.MaQg), nameof(QuocGium.TenQg));
+            ViewData["NamPhatHanh"] = new SelectList(_context.Nams, nameof(Nam.MaNam), nameof(Nam.TenNam));
             return View();
         }
 
@@ -86,8 +86,8 @@ namespace JDMovie.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
             
-            ViewData["MaQg"] = new SelectList(_context.QuocGia, "MaQg", "MaQg", dsphimBo.MaQg);
-            ViewData["NamPhatHanh"] = new SelectList(_context.Nams, "MaNam", "MaNam", dsphimBo.NamPhatHanh);
+            ViewData["MaQg"] = new SelectList(_context.QuocGia, nameof(QuocGium.MaQg), nameof(QuocGium.TenQg), dsphimBo.MaQg);
+            ViewData["NamPhatHanh"] = new SelectList(_context.Nams, nameof(Nam.MaNam), nameof(Nam.TenNam), dsphimBo.NamPhatHanh);
             return View(dsphimBo);
         }
 
@@ -104,9 +104,9 @@ namespace JDMovie.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-         
-            ViewData["MaQg"] = new SelectList(_context.QuocGia, "MaQg", "MaQg", dsphimBo.MaQg);
-            ViewData["NamPhatHanh"] = new SelectList(_context.Nams, "MaNam", "MaNam", dsphimBo.NamPhatHanh);
+
+            ViewData["MaQg"] = new SelectList(_context.QuocGia, nameof(QuocGium.MaQg), nameof(QuocGium.TenQg), dsphimBo.MaQg);
+            ViewData["NamPhatHanh"] = new SelectList(_context.Nams, nameof(Nam.MaNam), nameof(Nam.TenNam), dsphimBo.NamPhatHanh);
             return View(dsphimBo);
         }
 
@@ -115,7 +115,7 @@ namespace JDMovie.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,TenPhim,NoiDung,NamPhatHanh,IdtheLoai,ThoiLuong,Img,MaQg,LuotXem")] DsphimBo dsphimBo)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,TenPhim,NoiDung,NamPhatHanh,IdtheLoai,ThoiLuong,ImageFile,MaQg,LuotXem")] DsphimBo dsphimBo)
         {
             if (id != dsphimBo.Id)
             {
@@ -126,6 +126,15 @@ namespace JDMovie.Areas.Admin.Controllers
             {
                 try
                 {
+                    string wwwRootPath = _hostEnvironment.WebRootPath;
+                    string fileName = Path.GetFileNameWithoutExtension(dsphimBo.ImageFile.FileName);
+                    string extension = Path.GetExtension(dsphimBo.ImageFile.FileName);
+                    dsphimBo.Img = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    string path = Path.Combine(wwwRootPath + "/img/", fileName);
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        await dsphimBo.ImageFile.CopyToAsync(fileStream);
+                    }
                     _context.Update(dsphimBo);
                     await _context.SaveChangesAsync();
                 }
@@ -142,9 +151,9 @@ namespace JDMovie.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-          
-            ViewData["MaQg"] = new SelectList(_context.QuocGia, "MaQg", "MaQg", dsphimBo.MaQg);
-            ViewData["NamPhatHanh"] = new SelectList(_context.Nams, "MaNam", "MaNam", dsphimBo.NamPhatHanh);
+
+            ViewData["MaQg"] = new SelectList(_context.QuocGia, nameof(QuocGium.MaQg), nameof(QuocGium.TenQg), dsphimBo.MaQg);
+            ViewData["NamPhatHanh"] = new SelectList(_context.Nams, nameof(Nam.MaNam), nameof(Nam.TenNam), dsphimBo.NamPhatHanh);
             return View(dsphimBo);
         }
 

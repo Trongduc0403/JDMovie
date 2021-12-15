@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using AspNetCoreHero.ToastNotification;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.FileProviders;
+using ReflectionIT.Mvc.Paging;
 
 namespace JDMovie
 {
@@ -45,6 +46,10 @@ namespace JDMovie
            
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddMemoryCache();
+
+#pragma warning disable CS0618 // Type or member is obsolete
+            services.AddPaging();
+#pragma warning restore CS0618 // Type or member is obsolete
 
             services.AddNotyf(config => { config.DurationInSeconds = 3; config.IsDismissable = true; config.Position = NotyfPosition.BottomRight; });
         }

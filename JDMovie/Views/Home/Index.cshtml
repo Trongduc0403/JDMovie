@@ -87,12 +87,12 @@
                             <div class="card card--big">
                                 <div class="card__cover" >
                                     <img style="width:240px;height:355px;" src="@("~/img/" +item.Img)" asp-append-version="true" />
-                                <a asp-controller="DsphimLes" asp-action="Details" asp-route-id="@item.Id" class="card__play">
+                                <a asp-controller="DsphimBoes" asp-action="Details" asp-route-id="@item.Id" class="card__play">
                                     <i class="icon ion-ios-play"></i>
                                 </a>
                             </div>
                             <div class="card__content">
-                                <h3 class="card__title"><a asp-controller="DsphimLes" asp-action="Details" asp-route-id="@item.Id">@item.TenPhim</a></h3>
+                                <h3 class="card__title"><a asp-controller="DsphimBoes" asp-action="Details" asp-route-id="@item.Id">@item.TenPhim</a></h3>
                                 <span class="card__category">
                                     
                                 </span>

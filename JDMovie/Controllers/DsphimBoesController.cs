@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using JDMovie.Models;
+using PagedList.Core;
+using JDMovie.Helper;
+using ReflectionIT.Mvc.Paging;
 
 namespace JDMovie.Controllers
 {
@@ -34,27 +37,43 @@ namespace JDMovie.Controllers
         }
 
         // GET: DsphimBoes/Details/5
-        public async Task<IActionResult> Details(int? id, int? Tap)
+        public async Task<IActionResult> Details(int id, int? Tap = 1)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            var homephimbo = (from phimbo in _context.DsphimBos select phimbo).ToList();
-            var homecttapphim = (from ctphim in _context.CttapPhims where ctphim.Id == id select ctphim).ToList();
+            var homephimbo = (from phimbo in _context.DsphimBos where phimbo.Id == id select phimbo).FirstOrDefault();
+            var homecttapphim = (from ctphim in _context.CttapPhims where ctphim.Id == id select ctphim).AsNoTracking().OrderBy(s => s.TapPhim);
+
+
+            var nam = (from n in _context.Nams
+                      where n.MaNam == homephimbo.NamPhatHanh 
+                      select n).FirstOrDefault();
+
+            var quocgia = (from q in _context.QuocGia
+                      where q.MaQg == homephimbo.MaQg
+                      select q).FirstOrDefault();
+
 
             ViewBag.phimbo = homephimbo;
             ViewBag.ctphim = homecttapphim;
-            var dsphimBo = await _context.DsphimBos
-                .Include(d => d.MaQgNavigation)
-                .Include(d => d.NamPhatHanhNavigation)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (dsphimBo == null)
+            ViewBag.nam = nam; 
+            ViewBag.quocgia = quocgia;
+
+
+
+            if (ViewBag.phimbo == null)
             {
                 return NotFound();
             }
 
-            return View(dsphimBo);
+
+
+            var model = await PagingList.CreateAsync(homecttapphim, 1, (int)Tap);
+
+            return View(model);
+
         }
 
 

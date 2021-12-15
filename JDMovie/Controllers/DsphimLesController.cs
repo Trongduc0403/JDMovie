@@ -36,6 +36,8 @@ namespace JDMovie.Controllers
                 return NotFound();
             }
 
+
+
             var dsphimLe = await _context.DsphimLes
                 .Include(d => d.MaQgNavigation)
                 .Include(d => d.NamPhatHanhNavigation)
@@ -44,6 +46,17 @@ namespace JDMovie.Controllers
             {
                 return NotFound();
             }
+
+            var nam = (from n in _context.Nams
+                       where n.MaNam == dsphimLe.NamPhatHanh
+                       select n).FirstOrDefault();
+
+            var quocgia = (from q in _context.QuocGia
+                           where q.MaQg == dsphimLe.MaQg
+                           select q).FirstOrDefault();
+
+            ViewBag.nam = nam;
+            ViewBag.quocgia = quocgia;
 
             return View(dsphimLe);
         }

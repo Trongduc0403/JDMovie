@@ -1,4 +1,6 @@
-﻿@model JDMovie.Models.DsphimBo
+﻿@addTagHelper *,ReflectionIT.Mvc.Paging
+@using ReflectionIT.Mvc.Paging;
+@model ReflectionIT.Mvc.Paging.PagingList<JDMovie.Models.CttapPhim>
 
 @{
     ViewData["Title"] = "Details";
@@ -20,7 +22,7 @@
 			<div class="row">
 				<!-- title -->
 				<div class="col-12">
-					<h1 class="details__title">@Html.DisplayFor(model => model.TenPhim)</h1>
+					<h1 class="details__title">@ViewBag.phimbo.TenPhim</h1>
 				</div>
 				<!-- end title -->
 
@@ -31,7 +33,7 @@
 							<!-- card cover -->
 							<div class="col-12 col-sm-4 col-md-4 col-lg-3 col-xl-3">
 								<div class="card__cover">
-									<img src="@("~/img/" + @Model.Img)" asp-append-version="true" />
+									<img src="@("~/img/" + @ViewBag.phimbo.Img)" asp-append-version="true" />
 								</div>
 							</div>
 							<!-- end card cover -->
@@ -49,11 +51,11 @@
 									</div>
 
 									<ul class="card__meta">
-										<li><span>Genre:</span> <a href="#">Action</a>
+										<li><span>Thể Loại:</span> <a href="#">Action</a>
 										<a href="#">Triler</a></li>
-										<li><span>Release year:</span> 2017</li>
-										<li><span>Running time:</span> 120 min</li>
-										<li><span>Country:</span> <a href="#">USA</a> </li>
+										<li><span>Năm Phát Hành:</span><a asp-controller="TimKiem" asp-action="Nam" asp-route-id="@ViewBag.nam.MaNam">@ViewBag.nam.TenNam</a> </li>
+										<li><span>Thời Lượng:</span> @ViewBag.phimbo.ThoiLuong</li> 
+										<li><span>Quốc Gia:</span> <a asp-controller="TimKiem" asp-action="QuocGia" asp-route-id="@ViewBag.quocgia.MaQg">@ViewBag.quocgia.TenQg</a> </li>
 									</ul>
 
 									<div class="card__description card__description--details">
@@ -65,14 +67,15 @@
 						</div>
 					</div>
 				</div>
+
 				<!-- end content -->
-				@foreach(var item in ViewBag.ctphim)
+				@foreach(var item in Model)
 				{
-					<div class="col-12 col-xl-6">
+
 						<div class="col-12 col-xl-6">							
 							<iframe width="560" height="315" src="@item.Link" frameborder="0" allow="autoplay" allowfullscreen></iframe>
 						</div>	
-					</div>
+
 				}
 					
 			
@@ -100,8 +103,8 @@
 										@foreach(var item in ViewBag.ctphim)
 										{
 											<tr>
-												<th><a asp-action="Details" asp-route-id="@item.Idphim">Tập @item.TapPhim</a></th>
-												<td><a asp-action="Details" asp-route-id="@item.Idphim">Không có tiêu đề</a></td>
+												<th><a asp-action="Details" asp-route-id="@ViewBag.phimbo.Id" asp-route-Tap="@item.TapPhim">Tập @item.TapPhim</a></th>
+												<td><a asp-action="Details" asp-route-id="@ViewBag.phimbo.Id" asp-route-Tap="@item.TapPhim">Không có tiêu đề</a></td>
 											</tr>
 										}
 
@@ -116,6 +119,7 @@
 					
 					</div>
 				</div>
+
 				<!-- end accordion -->
 
 				<div class="col-12">

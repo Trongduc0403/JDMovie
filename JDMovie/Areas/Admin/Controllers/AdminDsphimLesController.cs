@@ -63,7 +63,7 @@ namespace JDMovie.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,TenPhim,NoiDung,NamPhatHanh,ThoiLuong,ImageFile,MaQg,LuotXem,Link,TheLoaiPhimLes")] DsphimLe dsphimLe)
+        public async Task<IActionResult> Create([Bind("Id,TenPhim,NoiDung,NamPhatHanh,ThoiLuong,ImageFile,MaQg,LuotXem,Link,TheLoaiPhimLes")] DsphimLe dsphimLe,[Bind("IdphimLe,IdtheLoai")] List<TheLoaiPhimLe> theLoaiPhimLe)
         {
             if (ModelState.IsValid)
             {
@@ -82,6 +82,7 @@ namespace JDMovie.Areas.Admin.Controllers
             }
             ViewData["MaQg"] = new SelectList(_context.QuocGia, nameof(QuocGium.MaQg), nameof(QuocGium.TenQg), dsphimLe.MaQg);
             ViewData["NamPhatHanh"] = new SelectList(_context.Nams, nameof(Nam.MaNam), nameof(Nam.TenNam), dsphimLe.NamPhatHanh);
+            ViewData["TheLoai"] = new SelectList(_context.TheLoais, nameof(TheLoai.IdtheLoai), nameof(TheLoai.TenTheLoai));
             return View(dsphimLe);
         }
 
@@ -100,6 +101,7 @@ namespace JDMovie.Areas.Admin.Controllers
             }
             ViewData["MaQg"] = new SelectList(_context.QuocGia, nameof(QuocGium.MaQg), nameof(QuocGium.TenQg), dsphimLe.MaQg);
             ViewData["NamPhatHanh"] = new SelectList(_context.Nams, nameof(Nam.MaNam), nameof(Nam.TenNam), dsphimLe.NamPhatHanh);
+            ViewData["TheLoai"] = new SelectList(_context.TheLoais, nameof(TheLoai.IdtheLoai), nameof(TheLoai.TenTheLoai));
             return View(dsphimLe);
         }
 
@@ -115,11 +117,19 @@ namespace JDMovie.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {
-
+                    string wwwRootPath = _hostEnvironment.WebRootPath;
+                    string fileName = Path.GetFileNameWithoutExtension(dsphimLe.ImageFile.FileName);
+                    string extension = Path.GetExtension(dsphimLe.ImageFile.FileName);
+                    dsphimLe.Img = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    string path = Path.Combine(wwwRootPath + "/img/", fileName);
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        await dsphimLe.ImageFile.CopyToAsync(fileStream);
+                    }
 
                     _context.Update(dsphimLe);
                     await _context.SaveChangesAsync();
@@ -139,6 +149,7 @@ namespace JDMovie.Areas.Admin.Controllers
             }
             ViewData["MaQg"] = new SelectList(_context.QuocGia, nameof(QuocGium.MaQg), nameof(QuocGium.TenQg), dsphimLe.MaQg);
             ViewData["NamPhatHanh"] = new SelectList(_context.Nams, nameof(Nam.MaNam), nameof(Nam.TenNam), dsphimLe.NamPhatHanh);
+            ViewData["TheLoai"] = new SelectList(_context.TheLoais, nameof(TheLoai.IdtheLoai), nameof(TheLoai.TenTheLoai));
             return View(dsphimLe);
         }
 

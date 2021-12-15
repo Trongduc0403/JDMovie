@@ -34,8 +34,8 @@
 									<ul class="card__meta">
 										<li><span>Thể Loại:</span> <a href="#">Action</a>
 											<a href="#">Triler</a></li>
-										<li><span>Năm Phát Hành:</span> @Html.DisplayFor(model => model.MaQgNavigation.TenQg)</li>
-										<li><span>Quốc Gia:</span> @Html.DisplayFor(model => model.NamPhatHanhNavigation.TenNam)</li>
+										<li><span>Năm Phát Hành:</span> <a asp-controller="TimKiem" asp-action="Nam" asp-route-id="@ViewBag.nam.MaNam">@Html.DisplayFor(model => model.NamPhatHanhNavigation.TenNam)</a> </li>
+										<li><span>Quốc Gia:</span> <a asp-controller="TimKiem" asp-action="QuocGia" asp-route-id="@ViewBag.quocgia.MaQg">@Html.DisplayFor(model => model.MaQgNavigation.TenQg)</a></li>
 										@*<li><span>Country:</span> <a href="#">USA</a> </li>*@
 									</ul>
 

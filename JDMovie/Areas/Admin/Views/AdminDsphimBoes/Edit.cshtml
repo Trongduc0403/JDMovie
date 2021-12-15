@@ -5,59 +5,65 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Edit</h1>
+		<div class="container-fluid">
+			<div class="row">
+				<!-- main title -->
+				<div class="col-12">
+					<div class="main__title">
+						<h2>Sửa Phim</h2>
+					</div>
+				</div>
+				<div class="col-12">
+					<form asp-action="Edit" class="form"enctype="multipart/form-data">
+						<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+						<div class="row">
+							<div class="col-12 col-md-5 form__cover">
+								<div class="row">
+									<div class="col-12 col-sm-6 col-md-12">
+										<div class="form__img">
+											<label asp-for="ImageFile" for="form__img-upload">Poster Phim (270 x 400)</label>
+											<input asp-for="ImageFile" id="form__img-upload" type="file" accept=".png, .jpg, .jpeg">
+											<img id="form__img" src="~/img/@Model.Img" alt=" ">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-12 col-md-7 form__content">
+								<div class="row">
+									<div class="col-12">
+										<input  asp-for="TenPhim" type="text" class="form__input" placeholder="Tên Phim">
+									</div>
 
-<h4>DsphimBo</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="TenPhim" class="control-label"></label>
-                <input asp-for="TenPhim" class="form-control" />
-                <span asp-validation-for="TenPhim" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NoiDung" class="control-label"></label>
-                <input asp-for="NoiDung" class="form-control" />
-                <span asp-validation-for="NoiDung" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NamPhatHanh" class="control-label"></label>
-                <select asp-for="NamPhatHanh" class="form-control" asp-items="ViewBag.NamPhatHanh"></select>
-                <span asp-validation-for="NamPhatHanh" class="text-danger"></span>
-            </div>
-          
-            <div class="form-group">
-                <label asp-for="ThoiLuong" class="control-label"></label>
-                <input asp-for="ThoiLuong" class="form-control" />
-                <span asp-validation-for="ThoiLuong" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Img" class="control-label"></label>
-                <input asp-for="Img" class="form-control" />
-                <span asp-validation-for="Img" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MaQg" class="control-label"></label>
-                <select asp-for="MaQg" class="form-control" asp-items="ViewBag.MaQg"></select>
-                <span asp-validation-for="MaQg" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LuotXem" class="control-label"></label>
-                <input asp-for="LuotXem" class="form-control" />
-                <span asp-validation-for="LuotXem" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+									<div class="col-12">
+										<input asp-for="NoiDung" type="text" class="form__textarea" placeholder="Nội Dung" >
+									</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+									<div class="col-12 col-sm-6 col-lg-3">
+										<select asp-for="NamPhatHanh" class="form__input" asp-items="ViewBag.NamPhatHanh"></select>
+									</div>
 
+									<div class="col-12 col-sm-6 col-lg-3">
+										<select asp-for="MaQg" class="form__input"  asp-items="ViewBag.MaQg"></select>
+									</div>								
+									<div class="col-12 col-sm-6 col-lg-3">
+										<input asp-for="ThoiLuong" type="text" class="form__input" placeholder="Thời Lượng">
+									</div>
+
+									<div class="col-12 col-lg-6">
+										<select class="js-example-basic-multiple" id="country" multiple="multiple">
+											<option value="Afghanistan">Afghanistan</option>
+											<option value="Åland Islands">Åland Islands</option>
+											<option value="Albania">Albania</option>
+											<option value="Algeria">Algeria</option>											
+										</select>
+									</div>
+
+									<button class="form__btn" type="submit" >Sửa Phim</button> || > || 
+									<button class="form__btn" asp-controller="AdminDsPhimLes" asp-action="Index">Trở Về</button>
+								</div>
+							</div>																			
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
