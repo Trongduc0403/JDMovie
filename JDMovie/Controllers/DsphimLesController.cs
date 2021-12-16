@@ -58,6 +58,10 @@ namespace JDMovie.Controllers
             ViewBag.nam = nam;
             ViewBag.quocgia = quocgia;
 
+            string route = "https://meet.google.com/jgb-roos-uwp/"+id;
+
+            ViewBag.route = route;
+
             return View(dsphimLe);
         }
 

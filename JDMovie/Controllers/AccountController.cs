@@ -75,6 +75,12 @@ namespace JDMovie.Controllers
             TempData["email"] = data.email;
             TempData["name"] = data.first_name + " " + data.last_name;
             TempData["picture"] = data.picture.data.url;
+
+
+            HttpContext.Session.SetString("email", TempData["email"].ToString());
+            HttpContext.Session.SetString("name", TempData["name"].ToString());
+            HttpContext.Session.SetString("picture", TempData["picture"].ToString());
+
             return RedirectToAction("Index", "Home");
 
 
