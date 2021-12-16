@@ -61,6 +61,9 @@ namespace JDMovie.Controllers
             ViewBag.nam = nam; 
             ViewBag.quocgia = quocgia;
 
+            string route = "https://meet.google.com/rff-exao-iam/" + id;
+            ViewBag.route = route;
+
 
 
             if (ViewBag.phimbo == null)
