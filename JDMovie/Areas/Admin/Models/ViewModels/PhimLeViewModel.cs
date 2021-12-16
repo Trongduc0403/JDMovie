@@ -7,7 +7,7 @@ namespace JDMovie.Areas.Admin.Models.ViewModels
     {
         public string TenPhim { get; set; }
         public string NoiDung { get; set;}
-        public int NamPhatHanh { get;}
+        public int NamPhatHanh { get; set; }
         public string ThoiLuong { get; set; }
         public string Img { get; set; }
         [NotMapped]
@@ -17,5 +17,7 @@ namespace JDMovie.Areas.Admin.Models.ViewModels
         public int LuotXem { get; set; }
         public string Link { get; set; }
         public int TheLoai { get; set;}
+        public int IdtheLoai { get; set; }
+        public int IdphimLe { get; set; }
     }
 }

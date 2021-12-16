@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using JDMovie.Models;
+using JDMovie.Areas.Admin.Models.ViewModels;
+using JDMovie.Helper;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace JDMovie.Areas.Admin.Controllers
 {
@@ -14,10 +17,12 @@ namespace JDMovie.Areas.Admin.Controllers
     {
         private readonly dbDACNContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
+        public INotyfService _notyfService { get; }
 
-        public AdminDsphimLesController(dbDACNContext context, IWebHostEnvironment hostEnvironment)
+        public AdminDsphimLesController(dbDACNContext context, IWebHostEnvironment hostEnvironment, INotyfService notyfService)
         {
             _context = context;
+            _notyfService = notyfService;
             this._hostEnvironment = hostEnvironment;
         }
 
@@ -54,7 +59,8 @@ namespace JDMovie.Areas.Admin.Controllers
             
             ViewData["MaQg"] = new SelectList(_context.QuocGia, nameof(QuocGium.MaQg), nameof(QuocGium.TenQg));
             ViewData["NamPhatHanh"] = new SelectList(_context.Nams, nameof(Nam.MaNam), nameof(Nam.TenNam));
-            ViewData["TheLoai"] = new SelectList(_context.TheLoais, nameof(TheLoai.IdtheLoai), nameof(TheLoai.TenTheLoai));
+            ViewData["IdphimLe"] = new SelectList(_context.DsphimLes, nameof(DsphimLe.Id), nameof(DsphimLe.TenPhim));
+            ViewData["IdtheLoai"] = new SelectList(_context.TheLoais, nameof(TheLoai.IdtheLoai), nameof(TheLoai.TenTheLoai));
             return View();
         }
 
@@ -63,27 +69,61 @@ namespace JDMovie.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,TenPhim,NoiDung,NamPhatHanh,ThoiLuong,ImageFile,MaQg,LuotXem,Link,TheLoaiPhimLes")] DsphimLe dsphimLe,[Bind("IdphimLe,IdtheLoai")] List<TheLoaiPhimLe> theLoaiPhimLe)
+        public async Task<IActionResult> Create([Bind("Id,TenPhim,NoiDung,NamPhatHanh,ThoiLuong,ImageFile,MaQg,LuotXem,Link,IdphimLe,IdtheLoai")] PhimLeViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                string wwwRootPath = _hostEnvironment.WebRootPath;
-                string fileName = Path.GetFileNameWithoutExtension(dsphimLe.ImageFile.FileName);
-                string extension = Path.GetExtension(dsphimLe.ImageFile.FileName);
-                dsphimLe.Img = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                string path = Path.Combine(wwwRootPath + "/img/", fileName);
-                using (var fileStream = new FileStream(path, FileMode.Create))
+                using (var transaction = _context.Database.BeginTransaction())
                 {
-                    await dsphimLe.ImageFile.CopyToAsync(fileStream);
+                    string wwwRootPath = _hostEnvironment.WebRootPath;
+                    string fileName = Path.GetFileNameWithoutExtension(model.ImageFile.FileName);
+                    string extension = Path.GetExtension(model.ImageFile.FileName);
+                    model.Img = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    string path = Path.Combine(wwwRootPath + "/img/", fileName);
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        await model.ImageFile.CopyToAsync(fileStream);
+                    }
+
+                
+
+                    var lastphim = (from DSPhimLe in _context.DsphimLes
+                                    orderby DSPhimLe.Id descending
+                                    select DSPhimLe).FirstOrDefault();
+
+
+
+                    DsphimLe dsphimLe = new DsphimLe();
+                    dsphimLe.Id = lastphim.Id + 1;
+                    dsphimLe.TenPhim = model.TenPhim;
+                    dsphimLe.NoiDung = model.NoiDung;
+                    dsphimLe.NamPhatHanh = model.NamPhatHanh;
+                    dsphimLe.ThoiLuong = model.ThoiLuong;
+                    dsphimLe.Img = model.Img;
+                    dsphimLe.MaQg = model.MaQg;
+                    dsphimLe.Link = model.Link;
+
+                    _context.Add(dsphimLe);
+
+
+                    TheLoaiPhimLe theloai = new TheLoaiPhimLe();
+                    theloai.IdtheLoai = model.IdtheLoai;
+                    theloai.IdphimLe = dsphimLe.Id;
+
+                    _context.Add(theloai);
+
+                    _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.DSPhimLe ON;");
+                    await _context.SaveChangesAsync();
+                    _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.DSPhimLe OFF;");
+                    transaction.Commit();
+                    return RedirectToAction(nameof(Index));
                 }
-                _context.Add(dsphimLe);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
             }
-            ViewData["MaQg"] = new SelectList(_context.QuocGia, nameof(QuocGium.MaQg), nameof(QuocGium.TenQg), dsphimLe.MaQg);
-            ViewData["NamPhatHanh"] = new SelectList(_context.Nams, nameof(Nam.MaNam), nameof(Nam.TenNam), dsphimLe.NamPhatHanh);
-            ViewData["TheLoai"] = new SelectList(_context.TheLoais, nameof(TheLoai.IdtheLoai), nameof(TheLoai.TenTheLoai));
-            return View(dsphimLe);
+            ViewData["MaQg"] = new SelectList(_context.QuocGia, nameof(QuocGium.MaQg), nameof(QuocGium.TenQg), model.MaQg);
+            ViewData["NamPhatHanh"] = new SelectList(_context.Nams, nameof(Nam.MaNam), nameof(Nam.TenNam), model.NamPhatHanh);
+            ViewData["IdphimLe"] = new SelectList(_context.DsphimLes, nameof(DsphimLe.Id), nameof(DsphimLe.TenPhim), model.IdphimLe);
+            ViewData["IdtheLoai"] = new SelectList(_context.TheLoais, nameof(TheLoai.IdtheLoai), nameof(TheLoai.TenTheLoai), model.IdtheLoai);
+            return View(model);
         }
 
         // GET: Admin/AdminDsphimLes/Edit/5
@@ -94,15 +134,29 @@ namespace JDMovie.Areas.Admin.Controllers
                 return NotFound();
             }
 
+            _notyfService.Information("Vui lòng chọn lại hình ảnh !");
+
             var dsphimLe = await _context.DsphimLes.FindAsync(id);
+            PhimLeViewModel model = new PhimLeViewModel();
+            model.TenPhim = dsphimLe.TenPhim;
+            model.NoiDung = dsphimLe.NoiDung;
+            model.NamPhatHanh = (int)dsphimLe.NamPhatHanh;
+            model.ThoiLuong = dsphimLe.ThoiLuong;
+            model.Img = dsphimLe.Img;
+            model.MaQg = (int)dsphimLe.MaQg;
+            model.Link = dsphimLe.Link;
+            model.IdphimLe = (int)id;
+
+
             if (dsphimLe == null)
             {
                 return NotFound();
             }
             ViewData["MaQg"] = new SelectList(_context.QuocGia, nameof(QuocGium.MaQg), nameof(QuocGium.TenQg), dsphimLe.MaQg);
             ViewData["NamPhatHanh"] = new SelectList(_context.Nams, nameof(Nam.MaNam), nameof(Nam.TenNam), dsphimLe.NamPhatHanh);
-            ViewData["TheLoai"] = new SelectList(_context.TheLoais, nameof(TheLoai.IdtheLoai), nameof(TheLoai.TenTheLoai));
-            return View(dsphimLe);
+            ViewData["IdphimLe"] = new SelectList(_context.DsphimLes, nameof(DsphimLe.Id), nameof(DsphimLe.TenPhim));
+            ViewData["IdtheLoai"] = new SelectList(_context.TheLoais, nameof(TheLoai.IdtheLoai), nameof(TheLoai.TenTheLoai));
+            return View(model);
         }
 
         // POST: Admin/AdminDsphimLes/Edit/5
@@ -110,33 +164,57 @@ namespace JDMovie.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,TenPhim,NoiDung,NamPhatHanh,ThoiLuong,ImageFile,MaQg,LuotXem,Link")] DsphimLe dsphimLe)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,TenPhim,NoiDung,NamPhatHanh,ThoiLuong,ImageFile,MaQg,LuotXem,Link,IdphimLe,IdtheLoai")] PhimLeViewModel model)
         {
-            if (id != dsphimLe.Id)
+            if (id != model.IdphimLe)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
+                
                 try
                 {
+
+
+
                     string wwwRootPath = _hostEnvironment.WebRootPath;
-                    string fileName = Path.GetFileNameWithoutExtension(dsphimLe.ImageFile.FileName);
-                    string extension = Path.GetExtension(dsphimLe.ImageFile.FileName);
-                    dsphimLe.Img = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    string fileName = Path.GetFileNameWithoutExtension(model.ImageFile.FileName);
+                    string extension = Path.GetExtension(model.ImageFile.FileName);
+                    model.Img = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
                     string path = Path.Combine(wwwRootPath + "/img/", fileName);
+
                     using (var fileStream = new FileStream(path, FileMode.Create))
                     {
-                        await dsphimLe.ImageFile.CopyToAsync(fileStream);
+                        await model.ImageFile.CopyToAsync(fileStream);
                     }
 
+
+                    DsphimLe dsphimLe = new DsphimLe();
+                    dsphimLe.Id = id;
+                    dsphimLe.TenPhim = model.TenPhim;
+                    dsphimLe.NoiDung = model.NoiDung;
+                    dsphimLe.NamPhatHanh = model.NamPhatHanh;
+                    dsphimLe.ThoiLuong = model.ThoiLuong;
+                    dsphimLe.Img = model.Img;
+                    dsphimLe.MaQg = model.MaQg;
+                    dsphimLe.Link = model.Link;
+
                     _context.Update(dsphimLe);
+
+                        TheLoaiPhimLe theloai = new TheLoaiPhimLe();
+                        theloai.IdphimLe = id;
+                        theloai.IdtheLoai = model.IdtheLoai;
+
+                        _context.Add(theloai);
+
+                    
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DsphimLeExists(dsphimLe.Id))
+                    if (!DsphimLeExists(model.IdphimLe))
                     {
                         return NotFound();
                     }
@@ -145,12 +223,24 @@ namespace JDMovie.Areas.Admin.Controllers
                         throw;
                     }
                 }
+                catch (Exception ex)
+                {
+                    _notyfService.Error("Thể loại đã tồn tại !");
+                    _notyfService.Information("Vui lòng chọn lại hình ảnh !");
+                    
+                    ViewData["MaQg"] = new SelectList(_context.QuocGia, nameof(QuocGium.MaQg), nameof(QuocGium.TenQg), model.MaQg);
+                    ViewData["NamPhatHanh"] = new SelectList(_context.Nams, nameof(Nam.MaNam), nameof(Nam.TenNam), model.NamPhatHanh);
+                    ViewData["IdphimLe"] = new SelectList(_context.DsphimLes, nameof(DsphimLe.Id), nameof(DsphimLe.TenPhim));
+                    ViewData["IdtheLoai"] = new SelectList(_context.TheLoais, nameof(TheLoai.IdtheLoai), nameof(TheLoai.TenTheLoai));
+                    return View(model);
+                }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MaQg"] = new SelectList(_context.QuocGia, nameof(QuocGium.MaQg), nameof(QuocGium.TenQg), dsphimLe.MaQg);
-            ViewData["NamPhatHanh"] = new SelectList(_context.Nams, nameof(Nam.MaNam), nameof(Nam.TenNam), dsphimLe.NamPhatHanh);
-            ViewData["TheLoai"] = new SelectList(_context.TheLoais, nameof(TheLoai.IdtheLoai), nameof(TheLoai.TenTheLoai));
-            return View(dsphimLe);
+            ViewData["MaQg"] = new SelectList(_context.QuocGia, nameof(QuocGium.MaQg), nameof(QuocGium.TenQg), model.MaQg);
+            ViewData["NamPhatHanh"] = new SelectList(_context.Nams, nameof(Nam.MaNam), nameof(Nam.TenNam), model.NamPhatHanh);
+            ViewData["IdphimLe"] = new SelectList(_context.DsphimLes, nameof(DsphimLe.Id), nameof(DsphimLe.TenPhim));
+            ViewData["IdtheLoai"] = new SelectList(_context.TheLoais, nameof(TheLoai.IdtheLoai), nameof(TheLoai.TenTheLoai));
+            return View(model);
         }
 
         // GET: Admin/AdminDsphimLes/Delete/5

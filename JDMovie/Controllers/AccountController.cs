@@ -31,7 +31,6 @@ namespace JDMovie.Controllers
         {
             var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             return builder.Build();
-
         }
 
         private Uri RedirectUri
@@ -63,7 +62,7 @@ namespace JDMovie.Controllers
         public IActionResult FacebookCallback(string code)
         {
             var fb = new FacebookClient();
-            dynamic result = fb.Post("oath/access_token", new
+            dynamic result = fb.Post("oauth/access_token", new
             {
                 client_id = appid,
                 client_secret = appsecret,
@@ -73,10 +72,12 @@ namespace JDMovie.Controllers
             var accesstoken = result.access_token;
             fb.AccessToken = accesstoken;
             dynamic data = fb.Get("me?fields=link,first_name,currency,last_name,email,gender,locale,timezone,verified,picture,age_range");
-            TempData["Email"] = data.email;
-            TempData["Name"] = data.first_name + " " + data.last_name;
-            TempData["Picture"] = data.picture.data.url;
+            TempData["email"] = data.email;
+            TempData["name"] = data.first_name + " " + data.last_name;
+            TempData["picture"] = data.picture.data.url;
             return RedirectToAction("Index", "Home");
+
+
         }
 
         private dbDACNContext db = new dbDACNContext();

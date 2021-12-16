@@ -30,6 +30,8 @@ leftn">
     <link rel="apple-touch-icon" sizes="114x114" href="~/Assets/icon/favicon-32x32.png">
     <link rel="apple-touch-icon" sizes="144x144" href="~/Assets/icon/favicon-32x32.png">
 
+
+
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="author" content="Dmitry Volkov">
@@ -40,13 +42,19 @@ leftn">
 
     <!-- header -->
 
+
+
     @await Html.PartialAsync("_HeaderPartialview.cshtml")
     <!-- end header -->
     @RenderBody()
 
+    
+
     <!-- footer -->
     @await Html.PartialAsync("_FooterPartialview.cshtml")
     <!-- end footer -->
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0&appId=275181587989831&autoLogAppEvents=1" nonce="BLvNJOK4"></script>
     <!-- JS -->
     <script src="~/Assets/js/jquery-3.3.1.min.js"></script>
     <script src="~/Assets/js/bootstrap.bundle.min.js"></script>
@@ -60,6 +68,8 @@ leftn">
     <script src="~/Assets/js/photoswipe.min.js"></script>
     <script src="~/Assets/js/photoswipe-ui-default.min.js"></script>
     <script src="~/Assets/js/main.js"></script>
+
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 

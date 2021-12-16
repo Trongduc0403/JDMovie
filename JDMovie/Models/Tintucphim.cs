@@ -12,10 +12,10 @@ namespace JDMovie.Models
         public string? Tomtat { get; set; }
         public string? Noidung { get; set; }
         public string? Hinhanh { get; set; }
+        public DateTime? Ngaycapnhat { get; set; }
         [NotMapped]
         [DisplayName("Upload File")]
         public IFormFile ImageFile { get; set; }
-        public DateTime? Ngaycapnhat { get; set; }
         public int? Luotxem { get; set; }
     }
 }
