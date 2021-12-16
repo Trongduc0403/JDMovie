@@ -20,8 +20,10 @@
 				<div class="col-12 col-sm-6 col-xl-3">
 					<div class="stats">
 						<span>Tài Khoản</span>
-						<p>12</p>
-						<i class="icon ion-ios-stats"></i>
+						
+						<p>@ViewBag.taikhoansl </p>
+						
+						<i class="icon ion-ios-contacts"></i>
 					</div>
 				</div>
 				<!-- end stats -->
@@ -30,7 +32,7 @@
 				<div class="col-12 col-sm-6 col-xl-3">
 					<div class="stats">
 						<span>Phim Lẻ</span>
-						<p>10</p>
+						<p>@ViewBag.phimlesl</p>
 						<i class="icon ion-ios-film"></i>
 					</div>
 				</div>
@@ -40,7 +42,7 @@
 				<div class="col-12 col-sm-6 col-xl-3">
 					<div class="stats">
 						<span>Phim Bộ</span>
-						<p>10</p>
+						<p>@ViewBag.phimbosl</p>
 						<i class="icon ion-ios-film"></i>
 					</div>
 				</div>
@@ -50,7 +52,7 @@
 				<div class="col-12 col-sm-6 col-xl-3">
 					<div class="stats">
 						<span>Tin Tức</span>
-						<p>10</p>
+						<p>@ViewBag.tintucsl</p>
 						<i class="icon ion-ios-star-half"></i>
 					</div>
 				</div>
@@ -60,11 +62,11 @@
 				<div class="col-12 col-xl-6">
 					<div class="dashbox">
 						<div class="dashbox__title">
-							<h3><i class="icon ion-ios-trophy"></i> Phim Lẻ </h3>
+							<h3><i class="icon ion-ios-film"></i> Phim Lẻ  </h3>
 
 							<div class="dashbox__wrap">
-								<a class="dashbox__refresh" href="#"><i class="icon ion-ios-refresh"></i></a>
-								<a class="dashbox__more" href="catalog.html">View All</a>
+								<a class="dashbox__refresh" asp-area="Admin" asp-controller="Home" asp-action="Index"><i class="icon ion-ios-refresh"></i></a>
+								<a class="dashbox__more" asp-area="Admin" asp-controller="AdminDsphimLes" asp-action="Index">View All</a>
 							</div>
 						</div>
 
@@ -73,82 +75,35 @@
 								<thead>
 									<tr>
 										<th>ID</th>
-										<th>TÊN PHIM</th>
-										<th>QUỐC GIA</th>
-										<th>NĂM</th>
+										<th>Tên Phim</th>
+										<th>Quốc Gia</th>
+										<th>Năm </th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>
-											<div class="main__table-text">13</div>
-										</td>
-										<td>
-											<div class="main__table-text">Câu Chuyện Về Benedetta - Benedetta</div>
-										</td>
-										<td>
-											<div class="main__table-text">Pháp</div>
-										</td>
-										<td>
-											<div class="main__table-text main__table-text--rate"><i class="icon ion-ios-star"></i> 2021</div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="main__table-text">14</div>
-										</td>
-										<td>
-											<div class="main__table-text">Tình Mẹ - Motherly</div>
-										</td>
-										<td>
-											<div class="main__table-text">Mỹ</div>
-										</td>
-										<td>
-											<div class="main__table-text main__table-text--rate"><i class="icon ion-ios-star"></i> 2021</div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="main__table-text">15</div>
-										</td>
-										<td>
-											<div class="main__table-text">Sát Thủ Xe Lăn - Kills On Wheels</div>
-										</td>
-										<td>
-											<div class="main__table-text">Mỹ</div>
-										</td>
-										<td>
-											<div class="main__table-text main__table-text--rate"><i class="icon ion-ios-star"></i> 2021</div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="main__table-text">16</div>
-										</td>
-										<td>
-											<div class="main__table-text">Evan Hansen Thân Mến - Dear Evan Hansen</div>
-										</td>
-										<td>
-											<div class="main__table-text">Mỹ</div>
-										</td>
-										<td>
-											<div class="main__table-text main__table-text--rate"><i class="icon ion-ios-star"></i> 2021</div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="main__table-text">17</div>
-										</td>
-										<td>
-											<div class="main__table-text">Giáng Sinh Cuối Cùng - Spencer</div>
-										</td>
-										<td>
-											<div class="main__table-text">Mỹ</div>
-										</td>
-										<td>
-											<div class="main__table-text main__table-text--rate"><i class="icon ion-ios-star"></i> 2021</div>
-										</td>
-									</tr>
+									@if(ViewBag.phimle != null )
+									{
+										@foreach(var item in ViewBag.phimle)
+										{
+										<tr>
+											<td>
+												<div class="main__table-text">@item.Id</div>
+											</td>
+											<td>
+												<div class="main__table-text">@item.TenPhim</div>
+											</td>
+											<td>
+												<div class="main__table-text">@item.MaQg</div>
+											</td>
+											<td>
+												<div class="main__table-text "> @item.NamPhatHanh</div>
+											</td>
+										</tr>
+										}
+
+									}
+									
+									
 								</tbody>
 							</table>
 						</div>
@@ -163,8 +118,8 @@
 							<h3><i class="icon ion-ios-film"></i> Phim Bộ</h3>
 
 							<div class="dashbox__wrap">
-								<a class="dashbox__refresh" href="#"><i class="icon ion-ios-refresh"></i></a>
-								<a class="dashbox__more" href="catalog.html">View All</a>
+								<a class="dashbox__refresh" asp-area="Admin" asp-controller="Home" asp-action="Index"><i class="icon ion-ios-refresh"></i></a>
+								<a class="dashbox__more" asp-area="Admin" asp-controller="AdminDsphimBoes" asp-action="Index">View All</a>
 							</div>
 						</div>
 
@@ -172,83 +127,35 @@
 							<table class="main__table main__table--dash">
 								<thead>
 									<tr>
-										<th>ID</th>
-										<th>TÊN PHIM</th>
-										<th>QUỐC GIA</th>
-										<th>NĂM</th>
+										<th style="width:20px">ID</th>
+										<th style="width:200px">Tên Phim</th>
+										<th style="width:50px">Quốc Gia</th>
+										<th style="width:50px">Năm </th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>
-											<div class="main__table-text">3</div>
-										</td>
-										<td>
-											<div class="main__table-text">Hạnh Phúc: Chung Cư Có Độc - Nắm Giữ Sinh Mệnh (Happiness 2021)</div>
-										</td>
-										<td>
-											<div class="main__table-text">Hàn Quốc</div>
-										</td>
-										<td>
-											<div class="main__table-text main__table-text--green">2021</div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="main__table-text">4</div>
-										</td>
-										<td>
-											<div class="main__table-text">Nhan Sắc Ảo - Người Đẹp Bóng Tối (Shadow Beauty 2021)</div>
-										</td>
-										<td>
-											<div class="main__table-text">Hàn Quốc</div>
-										</td>
-										<td>
-											<div class="main__table-text main__table-text--green">2021</div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="main__table-text">5</div>
-										</td>
-										<td>
-											<div class="main__table-text">Hình Bóng Của Tôi - Reflection Of You</div>
-										</td>
-										<td>
-											<div class="main__table-text">Anh</div>
-										</td>
-										<td>
-											<div class="main__table-text main__table-text--green">2021</div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="main__table-text">6</div>
-										</td>
-										<td>
-											<div class="main__table-text">Nửa Thời Gian Ấm Áp - The Memory About You (2021) 2</div>
-										</td>
-										<td>
-											<div class="main__table-text">Trung Quốc</div>
-										</td>
-										<td>
-											<div class="main__table-text main__table-text--green">2021</div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="main__table-text">7</div>
-										</td>
-										<td>
-											<div class="main__table-text">Trò Chơi Săn Lùng Kẻ Ác - Game of Outlaws (2021)</div>
-										</td>
-										<td>
-											<div class="main__table-text">Thái Lan</div>
-										</td>
-										<td>
-											<div class="main__table-text main__table-text--green">2021</div>
-										</td>
-									</tr>
+									@if(ViewBag.phimbo != null )
+									{
+										@foreach(var item in ViewBag.phimbo)
+										{
+										<tr>
+											<td style="width:20px">
+												<div class="main__table-text">@item.Id</div>
+											</td>
+											<td  style="width:250px">
+												<div class="main__table-text" style="overflow:hidden;-webkit-line-clamp:1;display: -webkit-box;-webkit-box-orient:vertical;">@item.TenPhim</div>
+											</td>
+											<td style="width:50px">
+												<div class="main__table-text">@item.MaQg</div>
+											</td>
+											<td style="width:50px">
+												<div class="main__table-text " > @item.NamPhatHanh</div>
+											</td>
+										</tr>
+										}
+
+									}
+									
 								</tbody>
 							</table>
 						</div>
@@ -263,8 +170,8 @@
 							<h3><i class="icon ion-ios-contacts"></i> Tài Khoản Đã Thêm</h3>
 
 							<div class="dashbox__wrap">
-								<a class="dashbox__refresh" href="#"><i class="icon ion-ios-refresh"></i></a>
-								<a class="dashbox__more" href="users.html">View All</a>
+								<a class="dashbox__refresh" asp-area="Admin" asp-controller="Home" asp-action="Index"><i class="icon ion-ios-refresh"></i></a>
+								<a class="dashbox__more" asp-area="Admin" asp-controller="AdminTaiKhoans" asp-action="Index">View All</a>
 							</div>
 						</div>
 
@@ -273,82 +180,42 @@
 								<thead>
 									<tr>
 										<th>ID</th>
-										<th>HỌ TÊN</th>
-										<th>EMAIL</th>
-										<th>QUYỀN</th>
+										<th>Họ Tên</th>
+										<th>Email</th>
+										<th>Quyền </th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>
-											<div class="main__table-text">1</div>
-										</td>
-										<td>
-											<div class="main__table-text">Phan Nguyễn Trọng Đức</div>
-										</td>
-										<td>
-											<div class="main__table-text main__table-text--grey">Trongduc0403@gmail.com</div>
-										</td>
-										<td>
-											<div class="main__table-text">Quản Trị Viên</div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="main__table-text">3</div>
-										</td>
-										<td>
-											<div class="main__table-text">Person23</div>
-										</td>
-										<td>
-											<div class="main__table-text main__table-text--grey">Person1@gmail.com</div>
-										</td>
-										<td>
-											<div class="main__table-text">Người Dùng</div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="main__table-text">4</div>
-										</td>
-										<td>
-											<div class="main__table-text">Person 2</div>
-										</td>
-										<td>
-											<div class="main__table-text main__table-text--grey">Person2@gmail.com</div>
-										</td>
-										<td>
-											<div class="main__table-text">Người Dùng</div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="main__table-text">5</div>
-										</td>
-										<td>
-											<div class="main__table-text">Nguyễn Minh Trí</div>
-										</td>
-										<td>
-											<div class="main__table-text main__table-text--grey">Minhtri@gmail.com</div>
-										</td>
-										<td>
-											<div class="main__table-text">Quản Trị Viên</div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="main__table-text">6</div>
-										</td>
-										<td>
-											<div class="main__table-text">Person 3</div>
-										</td>
-										<td>
-											<div class="main__table-text main__table-text--grey">Hello123@gmail.com</div>
-										</td>
-										<td>
-											<div class="main__table-text">Người Dùng</div>
-										</td>
-									</tr>
+									@if(ViewBag.taikhoan != null )
+									{
+										@foreach(var item in ViewBag.taikhoan)
+										{
+										<tr>
+											<td>
+												<div class="main__table-text">@item.Idtk</div>
+											</td>
+											<td>
+												<div class="main__table-text">@item.HoTen</div>
+											</td>
+											<td>
+												<div class="main__table-text">@item.Email</div>
+											</td>
+											<td>
+												@if(@item.Quyen == true)
+											{
+												<div class="main__table-text ">Quản Trị Viên</div>
+											}
+											else
+											{
+												<div class="main__table-text ">Người Dùng </div>
+											}
+
+											</td>
+										</tr>
+										}
+
+									}
+									
 								</tbody>
 							</table>
 						</div>
@@ -360,11 +227,11 @@
 				<div class="col-12 col-xl-6">
 					<div class="dashbox">
 						<div class="dashbox__title">
-							<h3><i class="icon ion-ios-star-half"></i> Tin tức</h3>
+							<h3><i class="icon ion-ios-star-half"></i> Tin Tức</h3>
 
 							<div class="dashbox__wrap">
-								<a class="dashbox__refresh" href="#"><i class="icon ion-ios-refresh"></i></a>
-								<a class="dashbox__more" href="reviews.html">View All</a>
+								<a class="dashbox__refresh" asp-area="Admin" asp-controller="Home" asp-action="Index"><i class="icon ion-ios-refresh"></i></a>
+								<a class="dashbox__more" asp-area="Admin" asp-controller="AdminTintucphims" asp-action="Index">View All</a>
 							</div>
 						</div>
 
@@ -373,55 +240,32 @@
 								<thead>
 									<tr>
 										<th>ID</th>
-										<th>TIÊU ĐỀ</th>
-										<th>NGÀY CẬP NHẬT</th>
+										<th>Tiêu Đề</th>
+										<th>Ngày Cập Nhật</th>
+										
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>
-											<div class="main__table-text">7</div>
-										</td>
-										<td>
-											<div class="main__table-text">Câu hỏi xoay quanh nhân vật em trai Thanos trong ‘Eternals’</div>
-										</td>
-										<td>
-											<div class="main__table-text">2021-12-02 Doe</div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="main__table-text">8</div>
-										</td>
-										<td>
-											<div class="main__table-text">Diễn viên nhận đề cử giải Kim Kê bị khán giả phản ứng</div>
-										</td>
-										<td>
-											<div class="main__table-text">2021-12-02</div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="main__table-text">9</div>
-										</td>
-										<td>
-											<div class="main__table-text">Mỹ nhân được đóng phim Marvel dù không casting</div>
-										</td>
-										<td>
-											<div class="main__table-text">2021-12-02</div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="main__table-text">10</div>
-										</td>
-										<td>
-											<div class="main__table-text">Luật ngầm của nghệ sĩ Trung Quốc khi dự thảm đỏ</div>
-										</td>
-										<td>
-											<div class="main__table-text">2021-12-02</div>
-										</td>
-									</tr>
+									@if(ViewBag.tintuc != null )
+									{
+										@foreach(var item in ViewBag.tintuc)
+										{
+										<tr>
+											<td>
+												<div class="main__table-text">@item.Idtintuc</div>
+											</td>
+											<td >
+												<div style=" white-space: nowrap;overflow: hidden;text-overflow: ellipsis;" class="main__table-text" >@item.Tieude</div>
+											</td>
+											<td>
+												<div class="main__table-text">@item.Ngaycapnhat</div>
+											</td>
+											
+										</tr>
+										}
+
+									}
+									
 								</tbody>
 							</table>
 						</div>
