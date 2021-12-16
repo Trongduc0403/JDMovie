@@ -2,9 +2,9 @@
 
 <header class="header">
     <div class="header__wrap">
-        <div class="container" style="padding-left: 13px; padding-right: 13px">
+        <div class="container" style="min-width: 1300px">
             <div class="row">
-                <div class="col-12">
+                <div class="col-20">
                     <div class="header__content" >
                         <!-- header logo -->
                         <a asp-controller="Home" asp-action="Index">
@@ -17,6 +17,17 @@
                             <li class="header__nav-item">
                                 <a class="dropdown-toggle header__nav-link" role="button" id="dropdownMenuCatalog" asp-controller="Home" asp-action="Index" >Trang Chủ</a>
                             </li>
+                             <li class="dropdown header__nav-item">
+                                <a class=" header__nav-link" href="#" 
+                                   role="button" id="dropdownMenuMore" data-toggle="dropdown" 
+                                   aria-haspopup="true" aria-expanded="false">Phim</a>
+
+                                <ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuMore">
+                                    <li><a asp-controller="DsPhimLes" asp-action="Index">Phim Lẻ</a></li>
+                                    <li><a asp-controller="DsPhimBoes" asp-action="Index">Phim Bộ</a></li>
+                                    
+                                </ul>
+                            </li>
                             <!-- end dropdown -->
 
                             @await Component.InvokeAsync("MenuTheLoai")
@@ -26,25 +37,17 @@
                             <li class="header__nav-item">
                                 <a asp-controller="Tintucphims" asp-action="Index" class="header__nav-link">Tin Tức</a>
                             </li>
-                            
+                           
                             <!-- dropdown -->
-                            <li class="dropdown header__nav-item">
-                                <a class="dropdown-toggle header__nav-link header__nav-link--more" href="#" 
-                                   role="button" id="dropdownMenuMore" data-toggle="dropdown" 
-                                   aria-haspopup="true" aria-expanded="false"><i class="icon ion-ios-more"></i></a>
-
-                                <ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuMore">
-                                    <li><a asp-controller="DsPhimLes" asp-action="Index">Phim Lẻ</a></li>
-                                    <li><a asp-controller="DsPhimBoes" asp-action="Index">Phim Bộ</a></li>
-                                    <li><a asp-controller="Home" asp-action="About">Giới thiệu</a></li>
-                                </ul>
-                            </li>
+                           
+                             <li><a asp-controller="Home" asp-action="About" class="header__nav-link">Giới thiệu</a></li>
+                             
                             <!-- end dropdown -->
                         </ul>
                         <!-- end header nav -->
                         <!-- header auth -->
                         <div class="header__auth">
-                            <button class="header__search-btn" type="button">
+                            <button class="header__search-btn" type="button" style="margin-left: 15px;">
                                 <i class="icon ion-ios-search"></i>
                             </button>
 
