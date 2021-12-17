@@ -39,24 +39,23 @@
 							<div class="col-12 col-sm-8 col-md-8 col-lg-9 col-xl-9">
 								<div class="card__content">
 									<div class="card__wrap">
-										<span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>
+										<span class="card__rate"><i class="icon ion-ios-star"></i></span>
 
 										<ul class="card__list">
-											<li>HD</li>
-											<li>16+</li>
+											
 										</ul>
 									</div>
 
 									<ul class="card__meta">
-										<li><span>Thể Loại:</span> <a href="#">Action</a>
-										<a href="#">Triler</a></li>
+										<li><span>Thể Loại:</span> <a href="#"></a>
 										<li><span>Năm Phát Hành:</span><a asp-controller="TimKiem" asp-action="Nam" asp-route-id="@ViewBag.nam.MaNam">@ViewBag.nam.TenNam</a> </li>
 										<li><span>Thời Lượng:</span> @ViewBag.phimbo.ThoiLuong</li> 
 										<li><span>Quốc Gia:</span> <a asp-controller="TimKiem" asp-action="QuocGia" asp-route-id="@ViewBag.quocgia.MaQg">@ViewBag.quocgia.TenQg</a> </li>
+										<li class="card__description card__description--details"><span>Nội Dung: @ViewBag.phimbo.NoiDung</span> </li>
 									</ul>
 
 									<div class="card__description card__description--details">
-										It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+										
 									</div>
 								</div>
 							</div>

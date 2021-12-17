@@ -20,7 +20,7 @@ else if(@Context.Session.GetString("email") != null)
 {
      <form method="post" id="logoutForm" asp-action="Logoff" asp-controller="Account">
         <div class="dropdown header__nav-item">
-            <a class="dropdown-toggle header__nav-link header__nav-link--more" href="#" role="button" id="dropdownMenuMore" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img  src= "@Context.Session.GetString("picture")"></a>
+            <a class="dropdown-toggle header__nav-link header__nav-link--more" href="#" role="button" id="dropdownMenuMore" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img style="border-radius: 50%;" src= "@Context.Session.GetString("picture")"></a>
 
             <ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuMore">
                 <li style="color: white" class="text-white nav-link">Hello, @Context.Session.GetString("name") </li>
@@ -31,7 +31,7 @@ else if(@Context.Session.GetString("email") != null)
 }
 else
 {
-    <a asp-controller="Account" asp-action="DangNhap" class="header__sign-in">
+    <a asp-controller="Account" asp-action="DangNhap" class="header__sign-in" style ="margin-left: 0px">
         <i class="icon ion-ios-log-in"></i>
         <span>Đăng nhập</span>
     </a>

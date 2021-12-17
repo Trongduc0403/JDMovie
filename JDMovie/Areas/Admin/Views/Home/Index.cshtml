@@ -74,7 +74,7 @@
 							<table class="main__table main__table--dash">
 								<thead>
 									<tr>
-										<th>ID</th>
+										
 										<th>Tên Phim</th>
 										<th>Quốc Gia</th>
 										<th>Năm </th>
@@ -86,9 +86,7 @@
 										@foreach(var item in ViewBag.phimle)
 										{
 										<tr>
-											<td>
-												<div class="main__table-text">@item.Id</div>
-											</td>
+											
 											<td>
 												<div class="main__table-text">@item.TenPhim</div>
 											</td>
@@ -127,7 +125,7 @@
 							<table class="main__table main__table--dash">
 								<thead>
 									<tr>
-										<th style="width:20px">ID</th>
+									
 										<th style="width:200px">Tên Phim</th>
 										<th style="width:50px">Quốc Gia</th>
 										<th style="width:50px">Năm </th>
@@ -139,9 +137,7 @@
 										@foreach(var item in ViewBag.phimbo)
 										{
 										<tr>
-											<td style="width:20px">
-												<div class="main__table-text">@item.Id</div>
-											</td>
+											
 											<td  style="width:250px">
 												<div class="main__table-text" style="overflow:hidden;-webkit-line-clamp:1;display: -webkit-box;-webkit-box-orient:vertical;">@item.TenPhim</div>
 											</td>
@@ -179,7 +175,7 @@
 							<table class="main__table main__table--dash">
 								<thead>
 									<tr>
-										<th>ID</th>
+										
 										<th>Họ Tên</th>
 										<th>Email</th>
 										<th>Quyền </th>
@@ -191,9 +187,7 @@
 										@foreach(var item in ViewBag.taikhoan)
 										{
 										<tr>
-											<td>
-												<div class="main__table-text">@item.Idtk</div>
-											</td>
+											
 											<td>
 												<div class="main__table-text">@item.HoTen</div>
 											</td>
@@ -239,7 +233,7 @@
 							<table class="main__table main__table--dash">
 								<thead>
 									<tr>
-										<th>ID</th>
+									
 										<th>Tiêu Đề</th>
 										<th>Ngày Cập Nhật</th>
 										
@@ -251,11 +245,9 @@
 										@foreach(var item in ViewBag.tintuc)
 										{
 										<tr>
-											<td>
-												<div class="main__table-text">@item.Idtintuc</div>
-											</td>
+											
 											<td >
-												<div style=" white-space: nowrap;overflow: hidden;text-overflow: ellipsis;" class="main__table-text" >@item.Tieude</div>
+												<div  class="main__table-text" style="overflow:hidden;-webkit-line-clamp:1;display: -webkit-box;-webkit-box-orient:vertical;">@item.Tieude</div>
 											</td>
 											<td>
 												<div class="main__table-text">@item.Ngaycapnhat</div>
