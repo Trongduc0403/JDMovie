@@ -55,8 +55,15 @@ namespace JDMovie.Controllers
                            where q.MaQg == dsphimLe.MaQg
                            select q).FirstOrDefault();
 
+            var theloai = (from t in _context.TheLoaiPhimLes
+                           where t.IdphimLe == id
+                           select t).Include(d => d.IdtheLoaiNavigation).ToList(); ;
+
             ViewBag.nam = nam;
             ViewBag.quocgia = quocgia;
+            ViewBag.theloai = theloai;
+
+
 
             string route = "https://meet.google.com/jgb-roos-uwp/"+id;
 

@@ -55,11 +55,16 @@ namespace JDMovie.Controllers
                       where q.MaQg == homephimbo.MaQg
                       select q).FirstOrDefault();
 
+            var theloai = (from t in _context.TheLoaiPhimBos
+                           where t.IdphimBo == id
+                           select t).Include(d => d.IdtheLoaiNavigation).ToList(); ;
+
 
             ViewBag.phimbo = homephimbo;
             ViewBag.ctphim = homecttapphim;
             ViewBag.nam = nam; 
             ViewBag.quocgia = quocgia;
+            ViewBag.theloai = theloai;
 
             string route = "https://meet.google.com/rff-exao-iam/" + id;
             ViewBag.route = route;
