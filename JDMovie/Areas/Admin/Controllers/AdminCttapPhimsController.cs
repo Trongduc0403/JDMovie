@@ -20,9 +20,15 @@ namespace JDMovie.Areas.Admin.Controllers
         }
 
         // GET: Admin/AdminCttapPhims
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
-            var dbDACNContext = _context.CttapPhims.Include(c => c.IdNavigation);
+            if(id == null)
+            {
+                return NotFound();
+            }    
+            var dbDACNContext = (from phim in _context.CttapPhims
+                                 where phim.Id == id
+                                 select phim).Include(c => c.IdNavigation);
             return View(await dbDACNContext.ToListAsync());
         }
 
@@ -48,7 +54,7 @@ namespace JDMovie.Areas.Admin.Controllers
         // GET: Admin/AdminCttapPhims/Create
         public IActionResult Create()
         {
-            ViewData["Id"] = new SelectList(_context.DsphimBos, "Id", "Id");
+            ViewData["Id"] = new SelectList(_context.DsphimBos, nameof(DsphimBo.Id), nameof(DsphimBo.TenPhim));
             return View();
         }
 
@@ -65,7 +71,7 @@ namespace JDMovie.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Id"] = new SelectList(_context.DsphimBos, "Id", "Id", cttapPhim.Id);
+            ViewData["Id"] = new SelectList(_context.DsphimBos, nameof(DsphimBo.Id), nameof(DsphimBo.TenPhim), cttapPhim.Id);
             return View(cttapPhim);
         }
 

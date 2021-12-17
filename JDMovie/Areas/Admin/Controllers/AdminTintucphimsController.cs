@@ -99,7 +99,7 @@ namespace JDMovie.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Idtintuc,Tieude,Tomtat,Noidung,Hinhanh,Ngaycapnhat,Luotxem")] Tintucphim tintucphim)
+        public async Task<IActionResult> Edit(int id, [Bind("Idtintuc,Tieude,Tomtat,Noidung,Hinhanh,ImageFile,Ngaycapnhat,Luotxem")] Tintucphim tintucphim)
         {
             if (id != tintucphim.Idtintuc)
             {
@@ -110,6 +110,15 @@ namespace JDMovie.Areas.Admin.Controllers
             {
                 try
                 {
+                    string wwwRootPath = _hostEnvironment.WebRootPath;
+                    string fileName = Path.GetFileNameWithoutExtension(tintucphim.ImageFile.FileName);
+                    string extension = Path.GetExtension(tintucphim.ImageFile.FileName);
+                    tintucphim.Hinhanh = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    string path = Path.Combine(wwwRootPath + "/img/", fileName);
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        await tintucphim.ImageFile.CopyToAsync(fileStream);
+                    }
                     _context.Update(tintucphim);
                     await _context.SaveChangesAsync();
                 }

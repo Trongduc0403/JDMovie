@@ -6,53 +6,54 @@
 }
 
 
+<div class="container-fluid">
+			<div class="row">
+				<!-- main title -->
+				<div class="col-12">
+					<div class="main__title">
+						<h2>Thêm Tin Tức</h2>
+					</div>
+				</div>
+				<div class="col-12">
+					<form asp-action="Edit" class="form"enctype="multipart/form-data">
+						<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+						<input type="hidden" asp-for="Idtintuc" />
+						<div class="row">
+							<div class="col-12 col-md-5 form__cover">
+								<div class="row">
+									<div class="col-12 col-sm-6 col-md-12">
+										<div class="form__img">
+											<label asp-for="ImageFile" for="form__img-upload">Poster Phim (270 x 400)</label>
+											<input asp-for="ImageFile" id="form__img-upload" type="file" accept=".png, .jpg, .jpeg">
+											<img id="form__img" src="#" alt=" ">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-12 col-md-7 form__content">
+								<div class="row">
+									<div class="col-12">
+										<input  asp-for="Tieude" type="text" class="form__input" placeholder="Tiêu Đề">
+									</div>
 
-<h1>Edit</h1>
+									<div class="col-12">
 
-<h4>Tintucphim</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Idtintuc" />
-            <div class="form-group">
-                <label asp-for="Tieude" class="control-label"></label>
-                <input asp-for="Tieude" class="form-control" />
-                <span asp-validation-for="Tieude" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Tomtat" class="control-label"></label>
-                <input asp-for="Tomtat" class="form-control" />
-                <span asp-validation-for="Tomtat" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Noidung" class="control-label"></label>
-                <input asp-for="Noidung" class="form-control" />
-                <span asp-validation-for="Noidung" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Hinhanh" class="control-label"></label>
-                <input asp-for="Hinhanh" class="form-control" />
-                <span asp-validation-for="Hinhanh" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Ngaycapnhat" class="control-label"></label>
-                <input asp-for="Ngaycapnhat" class="form-control" />
-                <span asp-validation-for="Ngaycapnhat" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Luotxem" class="control-label"></label>
-                <input asp-for="Luotxem" class="form-control" />
-                <span asp-validation-for="Luotxem" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+										<textarea asp-for="Noidung" type="text" class="form__textarea" placeholder="Nội Dung"></textarea>
+									</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+									<div class="col-12">
+										
+										<input asp-for="Ngaycapnhat" class="form__input" placeholder="Ngày Cập Nhật"/>
+										
+									</div>
+																
+									<button class="form__btn" type="submit">Sửa Tin Tức</button> || 
+									<button class="form__btn" asp-controller="AdminTintucphims" asp-action="Index">Trở Về</button>
+								</div>
+							</div>																			
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		
