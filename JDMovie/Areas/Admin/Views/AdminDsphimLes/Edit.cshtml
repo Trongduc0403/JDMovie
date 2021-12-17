@@ -16,6 +16,7 @@
 				<div class="col-12">
 					<form asp-action="Edit" class="form"enctype="multipart/form-data">
 						<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+						<input type="hidden" asp-for="IdphimLe" class="profile__input" onreadystatechange="true">
 						<div class="row">
 							<div class="col-12 col-md-5 form__cover">
 								<div class="row">
@@ -51,16 +52,15 @@
 									<div class="col-12 col-lg-6">
 										<input asp-for="Link" type="text" class="form__input" placeholder="Link Phim">
 									</div>
-									<div class="profile__group">
+@*									<div class="profile__group">
 										<label class="profile__label" for="firstname">Tên Phim</label>
 										<select asp-for="IdphimLe" class="profile__input" asp-items="ViewBag.IdphimLe" onreadystatechange="true"></select>
-									</div>
+									</div>*@
 									<div class="profile__group">
-										<label class="profile__label" for="firstname">Tên Thể Loại</label>
 										<select asp-for="IdtheLoai" class="profile__input" asp-items="ViewBag.IdtheLoai"></select>
 									</div>
 									<button class="form__btn" type="submit" >Sửa Phim</button> || > || 
-									<input style="border: none;" class="form__btn" onclick="theloai()" value="thể loại" type="button"/>|| > || 
+@*									<input style="border: none;" class="form__btn" onclick="theloai()" value="thể loại" type="button"/>|| > || *@
 									<button class="form__btn" asp-controller="AdminDsPhimLes" asp-action="Index">Trở Về</button>
 								</div>
 							</div>																			
