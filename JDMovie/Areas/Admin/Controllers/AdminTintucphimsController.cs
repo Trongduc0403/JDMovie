@@ -14,9 +14,10 @@ namespace JDMovie.Areas.Admin.Controllers
     {
         private readonly dbDACNContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
+     
         public AdminTintucphimsController(dbDACNContext context, IWebHostEnvironment hostEnvironment)
         {
-            _context = context;
+            _context = context;         
             this._hostEnvironment = hostEnvironment;
         }
 
@@ -127,6 +128,7 @@ namespace JDMovie.Areas.Admin.Controllers
             }
             return View(tintucphim);
         }
+
 
         // GET: Admin/AdminTintucphims/Delete/5
         public async Task<IActionResult> Delete(int? id)

@@ -5,54 +5,43 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Delete</h1>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Tintucphim</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Tieude)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Tieude)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Tomtat)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Tomtat)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Noidung)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Noidung)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Hinhanh)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Hinhanh)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Ngaycapnhat)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Ngaycapnhat)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Luotxem)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Luotxem)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Idtintuc" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-12">
+			<div class="main__title">
+				<h2>Xoá Tin Tức </h2>
+			</div>
+		</div>
+	</div>
+	<form asp-action="Delete">
+		<div class="col-6 col-sm-12 col-lg-6">
+			<div class="card card--list">
+				<div class="row">
+					<div class="col-12 col-sm-4">
+						<div class="card__cover">
+							<img src="@("~/img/" + @Model.Hinhanh)" asp-append-version="true" width="160px" height="230px">
+							<a href="#" class="card__play">
+								<i class="icon ion-ios-play"></i>
+							</a>
+						</div>
+					</div>
+					<div class="col-12 col-sm-8" >
+						<div class="card__content"  >
+							<h3 class="card__title" style="width:800px; color: #ff5860;font-size: 30px;" ><a>@Html.DisplayFor(model => model.Tieude)</a></h3>												
+							<div class="card__wrap" style=" color: white;">													
+								<ul class="card__list">
+									<li>Ngày Cập Nhật:  @Html.DisplayFor(model => model.Ngaycapnhat)</li>																			
+								</ul>					
+							</div>	
+						<div style="width:800px;color:white;text-align:justify;">							
+							Nội Dung:  @Html.DisplayFor(model => model.Noidung)						
+						</div>
+                        <button class="profile__btn" type="submit" value="Delete">Xoá</button>	
+						<button class="form__btn" asp-controller="AdminTintucphims" asp-action="Index">Trở Về</button>
+					</div>					
+				</div>
+			</div>
+		</div>
+	</div>
+	</form>
 </div>

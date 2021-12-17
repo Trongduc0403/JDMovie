@@ -25,7 +25,7 @@ Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 						<tr>
 							<th><div class="main__table-text">Tên Tài Khoản</div></th>
 							<th><div class="main__table-text">Họ Tên</div></th>
-							<th><div class="main__table-text">Mật Khẩu</div></th>
+							
 							<th><div class="main__table-text">Quyền</div></th>									
 						</tr>
 					</thead>
@@ -42,10 +42,7 @@ Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 								<div class="main__table-text">@Html.DisplayFor(modelItem => item.HoTen)</div>
 										
 							</td>
-							<td>
-								<div type="password" class="main__table-text">@Html.DisplayFor(modelItem => item.MatKhau)</div>
-										
-							</td>
+							
 							<td>
 								@if(item.Quyen == true )
 								{

@@ -15,98 +15,7 @@
 		</div>
 	</div>
 </section>
-@*
-<div class="filter">
-	<div class="container">
-		<div class="row">
-			<div class="col-12">
-				<div class="filter__content">
-					<div class="filter__items">
-						<!-- filter item -->
-						<div class="filter__item" id="filter__genre">
-							<span class="filter__item-label">GENRE:</span>
 
-							<div class="filter__item-btn dropdown-toggle" role="navigation" id="filter-genre" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<input type="button" value="Action/Adventure">
-								<span></span>
-							</div>
-
-							<ul class="filter__item-menu dropdown-menu scrollbar-dropdown" aria-labelledby="filter-genre">
-								<li>Action/Adventure</li>
-								<li>Animals</li>
-								<li>Animation</li>
-								<li>Biography</li>
-								<li>Comedy</li>
-								<li>Cooking</li>
-								<li>Dance</li>
-								<li>Documentary</li>
-								<li>Drama</li>
-									
-							</ul>
-						</div>
-						<!-- end filter item -->
-
-						<!-- filter item -->
-						<div class="filter__item" id="filter__quality">
-							<span class="filter__item-label">QUALITY:</span>
-
-							<div class="filter__item-btn dropdown-toggle" role="navigation" id="filter-quality" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<input type="button" value="HD 1080">
-								<span></span>
-							</div>
-
-							<ul class="filter__item-menu dropdown-menu scrollbar-dropdown" aria-labelledby="filter-quality">
-								<li>HD 1080</li>
-								<li>HD 720</li>
-								<li>DVD</li>
-								<li>TS</li>
-							</ul>
-						</div>
-						<!-- end filter item -->
-
-						<!-- filter item -->
-						<div class="filter__item" id="filter__rate">
-							<span class="filter__item-label">IMBd:</span>
-
-							<div class="filter__item-btn dropdown-toggle" role="button" id="filter-rate" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<div class="filter__range">
-									<div id="filter__imbd-start"></div>
-									<div id="filter__imbd-end"></div>
-								</div>
-								<span></span>
-							</div>
-
-							<div class="filter__item-menu filter__item-menu--range dropdown-menu" aria-labelledby="filter-rate">
-								<div id="filter__imbd"></div>
-							</div>
-						</div>
-						<!-- end filter item -->
-
-						<!-- filter item -->
-						<div class="filter__item" id="filter__year">
-							<span class="filter__item-label">RELEASE YEAR:</span>
-
-							<div class="filter__item-btn dropdown-toggle" role="button" id="filter-year" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<div class="filter__range">
-									<div id="filter__years-start"></div>
-									<div id="filter__years-end"></div>
-								</div>
-								<span></span>
-							</div>
-
-							<div class="filter__item-menu filter__item-menu--range dropdown-menu" aria-labelledby="filter-year">
-								<div id="filter__years"></div>
-							</div>
-						</div>
-					</div>
-					<button class="filter__btn" type="button">apply filter</button>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-*@
 <div class="catalog">
 	<div class="container">
 		<div class="row">
@@ -116,14 +25,14 @@
 				{
 					<div class="col-6 col-sm-4 col-lg-3 ">
 						<div class="card">
-							<div class="card__cover">
+							<div class="card__cover" style="width:240px;height:355px;" >
 								<img style="width:240px;height:355px;"  src="@("~/img/" +item.Img)" asp-append-version="true" />
 								<a asp-action="Details" asp-route-id="@item.Id" class="card__play">
 									<i class="icon ion-ios-play"></i>
 								</a>
 							</div>
 							<div class="card__content">
-								<h3 style=" color: #ff5860;font-size: 25px;overflow: hidden;-webkit-line-clamp:1;display: -webkit-box;-webkit-box-orient: vertical;"><a asp-action="Details" asp-route-id="@item.Id"></a>@Html.DisplayFor(modelItem => item.TenPhim)</h3>
+								<h3 style="width:240px; color: #ff5860;font-size: 25px;overflow: hidden;-webkit-line-clamp:2;display: -webkit-box;-webkit-box-orient: vertical;"><a asp-action="Details" asp-route-id="@item.Id"></a>@Html.DisplayFor(modelItem => item.TenPhim)</h3>
 							</div>
 						</div>
 					</div>

@@ -5,58 +5,44 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Details</h1>
-
-<div>
-    <h4>DsphimBo</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TenPhim)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TenPhim)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NoiDung)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NoiDung)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ThoiLuong)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ThoiLuong)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Img)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Img)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LuotXem)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LuotXem)
-        </dd>
-   
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MaQgNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MaQgNavigation.MaQg)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NamPhatHanhNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NamPhatHanhNavigation.MaNam)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-12">
+			<div class="main__title">
+				<h2>Chi Tiết Phim </h2>
+			</div>
+		</div>
+	</div>
+	<form asp-action="Detail">
+		<div class="col-6 col-sm-12 col-lg-6">
+			<div class="card card--list">
+				<div class="row">
+					<div class="col-12 col-sm-4">
+						<div class="card__cover">
+							<img src="@("~/img/" + @Model.Img)" asp-append-version="true" width="160px" height="230px">
+							<a href="#" class="card__play">
+								<i class="icon ion-ios-play"></i>
+							</a>
+						</div>
+					</div>
+					<div class="col-12 col-sm-8" >
+						<div class="card__content"  >
+							<h3 class="card__title" style="width:800px; color: #ff5860;font-size: 30px;" ><a>@Html.DisplayFor(model => model.TenPhim)</a></h3>												
+							<div class="card__wrap" style=" color: white;">													
+								<ul class="card__list">
+									<li>Quốc Gia: @Html.DisplayFor(model => model.MaQgNavigation.TenQg)</li>
+									<li>Năm Phát Hành: @Html.DisplayFor(model => model.NamPhatHanhNavigation.TenNam)	</li>
+																											
+								</ul>					
+							</div>	
+						<div style="width:800px;color:white;text-align:justify;">							
+							Nội Dung: @Html.DisplayFor(model => model.NoiDung)							
+						</div>
+						<button class="form__btn" asp-controller="AdminDsPhimBoes" asp-action="Index">Trở Về</button>
+					</div>					
+				</div>
+			</div>
+		</div>
+	</div>
+	</form>
 </div>
