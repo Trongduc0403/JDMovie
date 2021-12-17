@@ -173,22 +173,31 @@ namespace JDMovie.Areas.Admin.Controllers
 
             if (!ModelState.IsValid)
             {
-                
                 try
                 {
-
-
-
-                    string wwwRootPath = _hostEnvironment.WebRootPath;
-                    string fileName = Path.GetFileNameWithoutExtension(model.ImageFile.FileName);
-                    string extension = Path.GetExtension(model.ImageFile.FileName);
-                    model.Img = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                    string path = Path.Combine(wwwRootPath + "/img/", fileName);
-
-                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    try
                     {
-                        await model.ImageFile.CopyToAsync(fileStream);
+
+                        string wwwRootPath = _hostEnvironment.WebRootPath;
+                        string fileName = Path.GetFileNameWithoutExtension(model.ImageFile.FileName);
+                        string extension = Path.GetExtension(model.ImageFile.FileName);
+                        model.Img = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                        string path = Path.Combine(wwwRootPath + "/img/", fileName);
+
+                        using (var fileStream = new FileStream(path, FileMode.Create))
+                        {
+                            await model.ImageFile.CopyToAsync(fileStream);
+                        }
+                    }catch (Exception ex)
+                    {
+                        _notyfService.Error("Vui lòng chọn lại hình ảnh !");
+                        ViewData["MaQg"] = new SelectList(_context.QuocGia, nameof(QuocGium.MaQg), nameof(QuocGium.TenQg), model.MaQg);
+                        ViewData["NamPhatHanh"] = new SelectList(_context.Nams, nameof(Nam.MaNam), nameof(Nam.TenNam), model.NamPhatHanh);
+                        ViewData["IdphimLe"] = new SelectList(_context.DsphimLes, nameof(DsphimLe.Id), nameof(DsphimLe.TenPhim));
+                        ViewData["IdtheLoai"] = new SelectList(_context.TheLoais, nameof(TheLoai.IdtheLoai), nameof(TheLoai.TenTheLoai));
+                        return View(model);
                     }
+
 
 
                     DsphimLe dsphimLe = new DsphimLe();
