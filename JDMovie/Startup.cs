@@ -35,7 +35,7 @@ namespace JDMovie
             services.AddSession(options =>
             {
                 options.Cookie.Name = ".AdventureWorks.Session";
-                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.IdleTimeout = TimeSpan.FromHours(5);
                 options.Cookie.IsEssential = true;
             });
             var stringConnectdb = Configuration.GetConnectionString("dbJDMovie");
