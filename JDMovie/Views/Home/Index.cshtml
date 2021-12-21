@@ -81,11 +81,11 @@
            
                 <div class="col-12">
                   <div class="owl-carousel home__carousel">
-                    @foreach(var item in ViewBag.phimbo)
+                        @foreach(var item in ViewBag.phimbo)
                         {
-                         <div class="item">
+                        <div class="item">
                             <div class="card card--big">
-                                <div class="card__cover" >
+                                <div class="card__cover">
                                     <img style="width:240px;height:355px;" src="@("~/img/" +item.Img)" asp-append-version="true" />
                                 <a asp-controller="DsphimBoes" asp-action="Details" asp-route-id="@item.Id" class="card__play">
                                     <i class="icon ion-ios-play"></i>
@@ -100,7 +100,7 @@
                             </div>
                         </div>
                     </div>
-                     }
+                        }
                 </div>
             </div>
           

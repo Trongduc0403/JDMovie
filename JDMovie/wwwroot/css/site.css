@@ -28,3 +28,21 @@ a.text-danger:hover, a.text-danger:focus {
 .text-white {
     color: white;
 }
+
+.card__cover:hover {
+    -webkit-box-shadow: 0 0 20px 0 rgba(255, 88, 96, 0.5);
+    box-shadow: 0 0 20px 0 rgba(255, 88, 96, 0.5);
+    width: 240px;
+    height: 355px;
+}
+.item:hover{
+    width: 240px;
+}
+.card--details .card__cover:before {
+    display: none;
+    width: 240px;
+}
+.card__cover {
+    width: 240px;
+    height: 355px;
+}

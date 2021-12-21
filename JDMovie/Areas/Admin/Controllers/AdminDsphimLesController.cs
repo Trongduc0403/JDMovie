@@ -148,6 +148,14 @@ namespace JDMovie.Areas.Admin.Controllers
             model.IdphimLe = (int)id;
 
 
+                var theloaip = (from tl in _context.TheLoaiPhimLes
+                               where tl.IdphimLe == id
+                               select tl).Include(t => t.IdphimLeNavigation).ToList();
+
+                ViewBag.theloaip = theloaip;
+
+
+
             if (dsphimLe == null)
             {
                 return NotFound();
@@ -177,7 +185,7 @@ namespace JDMovie.Areas.Admin.Controllers
                 {
                     try
                     {
-
+                        
                         string wwwRootPath = _hostEnvironment.WebRootPath;
                         string fileName = Path.GetFileNameWithoutExtension(model.ImageFile.FileName);
                         string extension = Path.GetExtension(model.ImageFile.FileName);
@@ -195,6 +203,11 @@ namespace JDMovie.Areas.Admin.Controllers
                         ViewData["NamPhatHanh"] = new SelectList(_context.Nams, nameof(Nam.MaNam), nameof(Nam.TenNam), model.NamPhatHanh);
                         ViewData["IdphimLe"] = new SelectList(_context.DsphimLes, nameof(DsphimLe.Id), nameof(DsphimLe.TenPhim));
                         ViewData["IdtheLoai"] = new SelectList(_context.TheLoais, nameof(TheLoai.IdtheLoai), nameof(TheLoai.TenTheLoai));
+                        var theloaip = (from tl in _context.TheLoaiPhimLes
+                                        where tl.IdphimLe == id
+                                        select tl).Include(t => t.IdphimLeNavigation).ToList();
+
+                        ViewBag.theloaip = theloaip;
                         return View(model);
                     }
 
@@ -209,6 +222,18 @@ namespace JDMovie.Areas.Admin.Controllers
                     dsphimLe.Img = model.Img;
                     dsphimLe.MaQg = model.MaQg;
                     dsphimLe.Link = model.Link;
+
+                    if (dsphimLe.Img == null)
+                    {
+                        _notyfService.Error("Vui lòng chọn hình ảnh !");
+                        ViewData["MaQg"] = new SelectList(_context.QuocGia, nameof(QuocGium.MaQg), nameof(QuocGium.TenQg), model.MaQg);
+                        ViewData["NamPhatHanh"] = new SelectList(_context.Nams, nameof(Nam.MaNam), nameof(Nam.TenNam), model.NamPhatHanh);
+                        ViewData["IdphimLe"] = new SelectList(_context.DsphimLes, nameof(DsphimLe.Id), nameof(DsphimLe.TenPhim));
+                        ViewData["IdtheLoai"] = new SelectList(_context.TheLoais, nameof(TheLoai.IdtheLoai), nameof(TheLoai.TenTheLoai));
+                        return View(model);
+                    }
+
+
 
                     _context.Update(dsphimLe);
 
@@ -249,6 +274,7 @@ namespace JDMovie.Areas.Admin.Controllers
             ViewData["NamPhatHanh"] = new SelectList(_context.Nams, nameof(Nam.MaNam), nameof(Nam.TenNam), model.NamPhatHanh);
             ViewData["IdphimLe"] = new SelectList(_context.DsphimLes, nameof(DsphimLe.Id), nameof(DsphimLe.TenPhim));
             ViewData["IdtheLoai"] = new SelectList(_context.TheLoais, nameof(TheLoai.IdtheLoai), nameof(TheLoai.TenTheLoai));
+
             return View(model);
         }
 
@@ -278,6 +304,16 @@ namespace JDMovie.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var dsphimLe = await _context.DsphimLes.FindAsync(id);
+
+
+            var queryTheLoaiPhimLe = from TheLoaiPhimLe in _context.TheLoaiPhimLes
+                                    where TheLoaiPhimLe.IdphimLe == id
+                                    select TheLoaiPhimLe;
+            foreach (var del in queryTheLoaiPhimLe)
+            {
+                _context.TheLoaiPhimLes.Remove(del);
+            }
+
             _context.DsphimLes.Remove(dsphimLe);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
