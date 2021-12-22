@@ -56,13 +56,29 @@
 									<div class="profile__group">
 										<select asp-for="IdtheLoai" class="profile__input" asp-items="ViewBag.IdtheLoai"></select>
 									</div>
+					
+							@{
+								try
+								{
 									<div class="col-12 col-sm-6 col-lg-3">
+										<ul class="card__meta">
+											@foreach(var item in @ViewBag.theloaip)
+										{
+											<li  class="main__table-text"><span>@item.IdtheLoaiNavigation.TenTheLoai</span>  </li>
+										}
+										</ul>
 										
 									</div>
+								}catch
+								{
+										
+								}
+							}
+										
+
+									
 									<div class="col-12 col-sm-6 col-lg-3">
 										<button class="form__btn" type="submit" >Sửa Phim</button>
-									</div>
-									<div class="col-12 col-sm-6 col-lg-3">
 										<button class="form__btn" asp-controller="AdminDsPhimLes" asp-action="Index">Trở Về</button>
 									</div>								
 								</div>
@@ -73,9 +89,3 @@
 			</div>
 		</div>
 
-		<script>
-			function theloai(){
-				var currDate = "@DateTime.Now";
-				document.getElementById("tiem").innerHTML = currDate;
-			}
-		</script>
