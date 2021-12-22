@@ -148,11 +148,11 @@ namespace JDMovie.Areas.Admin.Controllers
             model.IdphimLe = (int)id;
 
 
-                var theloaip = (from tl in _context.TheLoaiPhimLes
-                               where tl.IdphimLe == id
-                               select tl).Include(t => t.IdphimLeNavigation).ToList();
+            var theloaip = (from tl in _context.TheLoaiPhimLes
+                            where tl.IdphimLe == id
+                            select tl).Include(t => t.IdphimLeNavigation).ToList();
 
-                ViewBag.theloaip = theloaip;
+            ViewBag.theloaip = theloaip;
 
 
 
@@ -185,7 +185,6 @@ namespace JDMovie.Areas.Admin.Controllers
                 {
                     try
                     {
-                        
                         string wwwRootPath = _hostEnvironment.WebRootPath;
                         string fileName = Path.GetFileNameWithoutExtension(model.ImageFile.FileName);
                         string extension = Path.GetExtension(model.ImageFile.FileName);
@@ -203,11 +202,11 @@ namespace JDMovie.Areas.Admin.Controllers
                         ViewData["NamPhatHanh"] = new SelectList(_context.Nams, nameof(Nam.MaNam), nameof(Nam.TenNam), model.NamPhatHanh);
                         ViewData["IdphimLe"] = new SelectList(_context.DsphimLes, nameof(DsphimLe.Id), nameof(DsphimLe.TenPhim));
                         ViewData["IdtheLoai"] = new SelectList(_context.TheLoais, nameof(TheLoai.IdtheLoai), nameof(TheLoai.TenTheLoai));
-                        var theloaip = (from tl in _context.TheLoaiPhimLes
+                        var theloaipd = (from tl in _context.TheLoaiPhimLes
                                         where tl.IdphimLe == id
                                         select tl).Include(t => t.IdphimLeNavigation).ToList();
 
-                        ViewBag.theloaip = theloaip;
+                        ViewBag.theloaip = theloaipd;
                         return View(model);
                     }
 
@@ -230,6 +229,11 @@ namespace JDMovie.Areas.Admin.Controllers
                         ViewData["NamPhatHanh"] = new SelectList(_context.Nams, nameof(Nam.MaNam), nameof(Nam.TenNam), model.NamPhatHanh);
                         ViewData["IdphimLe"] = new SelectList(_context.DsphimLes, nameof(DsphimLe.Id), nameof(DsphimLe.TenPhim));
                         ViewData["IdtheLoai"] = new SelectList(_context.TheLoais, nameof(TheLoai.IdtheLoai), nameof(TheLoai.TenTheLoai));
+                        var theloaiph = (from tl in _context.TheLoaiPhimLes
+                                        where tl.IdphimLe == id
+                                        select tl).Include(t => t.IdphimLeNavigation).ToList();
+
+                        ViewBag.theloaip = theloaiph;
                         return View(model);
                     }
 
@@ -237,13 +241,11 @@ namespace JDMovie.Areas.Admin.Controllers
 
                     _context.Update(dsphimLe);
 
-                        TheLoaiPhimLe theloai = new TheLoaiPhimLe();
-                        theloai.IdphimLe = id;
-                        theloai.IdtheLoai = model.IdtheLoai;
+                    TheLoaiPhimLe theloai = new TheLoaiPhimLe();
+                    theloai.IdphimLe = id;
+                    theloai.IdtheLoai = model.IdtheLoai;
+                    _context.Add(theloai);
 
-                        _context.Add(theloai);
-
-                    
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -266,6 +268,11 @@ namespace JDMovie.Areas.Admin.Controllers
                     ViewData["NamPhatHanh"] = new SelectList(_context.Nams, nameof(Nam.MaNam), nameof(Nam.TenNam), model.NamPhatHanh);
                     ViewData["IdphimLe"] = new SelectList(_context.DsphimLes, nameof(DsphimLe.Id), nameof(DsphimLe.TenPhim));
                     ViewData["IdtheLoai"] = new SelectList(_context.TheLoais, nameof(TheLoai.IdtheLoai), nameof(TheLoai.TenTheLoai));
+                    var theloaipt = (from tl in _context.TheLoaiPhimLes
+                                    where tl.IdphimLe == id
+                                    select tl).Include(t => t.IdphimLeNavigation).ToList();
+
+                    ViewBag.theloaip = theloaipt;
                     return View(model);
                 }
                 return RedirectToAction(nameof(Index));
@@ -274,6 +281,11 @@ namespace JDMovie.Areas.Admin.Controllers
             ViewData["NamPhatHanh"] = new SelectList(_context.Nams, nameof(Nam.MaNam), nameof(Nam.TenNam), model.NamPhatHanh);
             ViewData["IdphimLe"] = new SelectList(_context.DsphimLes, nameof(DsphimLe.Id), nameof(DsphimLe.TenPhim));
             ViewData["IdtheLoai"] = new SelectList(_context.TheLoais, nameof(TheLoai.IdtheLoai), nameof(TheLoai.TenTheLoai));
+            var theloaip = (from tl in _context.TheLoaiPhimLes
+                            where tl.IdphimLe == id
+                            select tl).Include(t => t.IdphimLeNavigation).ToList();
+
+            ViewBag.theloaip = theloaip;
 
             return View(model);
         }
@@ -323,5 +335,25 @@ namespace JDMovie.Areas.Admin.Controllers
         {
             return _context.DsphimLes.Any(e => e.Id == id);
         }
+
+
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> AddTheLoai(int id, [Bind("IdtheLoai")] PhimLeViewModel mode)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+
+
+
+        //        _context.Add(theLoaiPhimLe);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction("Index");
+        //    }
+        //    ViewData["IdphimLe"] = new SelectList(_context.DsphimLes, nameof(DsphimLe.Id), nameof(DsphimLe.TenPhim), mode.IdphimLe);
+        //    ViewData["IdtheLoai"] = new SelectList(_context.TheLoais, nameof(TheLoai.IdtheLoai), nameof(TheLoai.TenTheLoai), mode.IdtheLoai);
+        //    return View(theLoaiPhimLe);
+        //}
     }
 }

@@ -1,4 +1,4 @@
-﻿@model JDMovie.Models.DsphimBo
+﻿@model JDMovie.Areas.Admin.Models.ViewModels.PhimLeViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -16,6 +16,7 @@
 				<div class="col-12">
 					<form asp-action="Edit" class="form"enctype="multipart/form-data">
 						<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+						<input type="hidden" asp-for="IdphimLe" class="profile__input" onreadystatechange="true">
 						<div class="row">
 							<div class="col-12 col-md-5 form__cover">
 								<div class="row">
@@ -23,7 +24,7 @@
 										<div class="form__img">
 											<label asp-for="ImageFile" for="form__img-upload">Poster Phim (270 x 400)</label>
 											<input asp-for="ImageFile" id="form__img-upload" type="file" accept=".png, .jpg, .jpeg">
-											<img id="form__img" src="~/img/@Model.Img" alt=" ">
+											<img id="form__img" src="" alt=" ">
 										</div>
 									</div>
 								</div>
@@ -48,19 +49,40 @@
 									<div class="col-12 col-sm-6 col-lg-3">
 										<input asp-for="ThoiLuong" type="text" class="form__input" placeholder="Thời Lượng">
 									</div>
-									<div class="col-12 col-sm-6 col-lg-3 "> </div>
-									<div class="col-12 col-sm-6 col-lg-3 ">
-										<button class="form__btn" type="submit" >Sửa Phim</button> 								
+
+									<div class="profile__group">
+										<select asp-for="IdtheLoai" class="profile__input" asp-items="ViewBag.IdtheLoai"></select>
 									</div>
-									<div class="col-12 col-sm-6 col-lg-3">			
+					
+							@{
+								try
+								{
+									<div class="col-12 col-sm-6 col-lg-3">
+										<ul class="card__meta">
+											@foreach(var item in @ViewBag.theloaip)
+										{
+											<li  class="main__table-text"><span>@item.IdtheLoaiNavigation.TenTheLoai</span>  </li>
+										}
+										</ul>
+										
+									</div>
+								}catch
+								{
+										
+								}
+							}
+										
+
+									
+									<div class="col-12 col-sm-6 col-lg-3">
+										<button class="form__btn" type="submit" >Sửa Phim</button>
 										<button class="form__btn" asp-controller="AdminDsPhimBoes" asp-action="Index">Trở Về</button>
-									</div>									
+									</div>								
 								</div>
-								
-							</div>	
-							
+							</div>																			
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
+
