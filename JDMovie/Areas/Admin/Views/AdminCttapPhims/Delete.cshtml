@@ -24,12 +24,6 @@
 										<h4 class="profile__title"></h4>
 									</div>
 									<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-									<div class="col-12 ">
-										<div class="profile__group">
-											<label class="profile__label" for="username">Tên Phim</label>											
-											 <select asp-for="Id" class ="form__input" asp-items="ViewBag.Id"></select>
-										</div>
-									</div>	
 									<div class="col-12">
 										<div class="profile__group">
 											<label class="profile__label" for="username">Tập Phim</label>
@@ -46,7 +40,7 @@
 									</div>
 									<div class="col-12">											
 										<button class="profile__btn" type="submit" value="Delete">Xoá</button>
-										<button class="profile__btn" asp-controller="AdminCttapPhims" asp-action="Index" >Trở Về</button>							
+										<button class="profile__btn" asp-controller="AdminCttapPhims" asp-action="Index" asp-route-id="@Model.Id">Trở Về</button>							
 									</div>					
 								</div>
 							</form>

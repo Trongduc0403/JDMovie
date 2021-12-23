@@ -90,14 +90,15 @@ namespace JDMovie.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            ViewBag.idphim = id;
-
             var cttapPhim = await _context.CttapPhims.FindAsync(id);
+
+            ViewBag.idphim = cttapPhim.Id;
+
             if (cttapPhim == null)
             {
                 return NotFound();
             }
-            ViewData["Id"] = new SelectList(_context.DsphimBos, nameof(DsphimBo.Id), nameof(DsphimBo.TenPhim), cttapPhim.Id);
+
             return View(cttapPhim);
         }
 
@@ -108,10 +109,6 @@ namespace JDMovie.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Idphim,TapPhim,Id,Link")] CttapPhim cttapPhim)
         {
-            if (id != cttapPhim.Idphim)
-            {
-                return NotFound();
-            }
 
             if (ModelState.IsValid)
             {
