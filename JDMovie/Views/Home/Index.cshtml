@@ -85,7 +85,7 @@
                         {
                         <div class="item">
                             <div class="card card--big">
-                                <div class="card__cover">
+                                <div class="card__cover" style="width:240px;height:355px;">
                                     <img style="width:240px;height:355px;" src="@("~/img/" +item.Img)" asp-append-version="true" />
                                 <a asp-controller="DsphimBoes" asp-action="Details" asp-route-id="@item.Id" class="card__play">
                                     <i class="icon ion-ios-play"></i>
@@ -145,8 +145,8 @@
                     <div class="col-6 col-sm-12 col-lg-6">
                         <div class="card card--list">
                             <div class="row">
-                                <div class="col-12 col-sm-4">
-                                    <div class="card__cover" >
+                                <div class="col-12 col-sm-4" >
+                                    <div class="card__cover" style="width:160px; height:237px;"  >
                                         <img style="width:160px; height:237px;" src="~/img/@item.Hinhanh" alt="">
                                         <a asp-controller="Tintucphims" asp-action="Details" asp-route-id="@item.Idtintuc" class="card__play">
                                             <i class="icon ion-ios-play"></i>

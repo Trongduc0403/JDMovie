@@ -41,14 +41,15 @@
 										<textarea asp-for="Noidung" type="text" class="form__textarea" placeholder="Nội Dung"></textarea>
 									</div>
 
-									<div class="col-12">
+									<div class="col-12 col-sm-6">
 										
 										<input asp-for="Ngaycapnhat" class="form__input" placeholder="Ngày Cập Nhật"/>
 										
 									</div>
-																
-									<button class="form__btn" type="submit">Sửa Tin Tức</button> || 
+									<div class="col-12">							
+									<button class="form__btn" type="submit">Sửa Tin Tức</button>
 									<button class="form__btn" asp-controller="AdminTintucphims" asp-action="Index">Trở Về</button>
+									</div>
 								</div>
 							</div>																			
 						</div>
