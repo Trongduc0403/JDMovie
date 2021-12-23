@@ -5,38 +5,55 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Edit</h1>
 
-<h4>CttapPhim</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Idphim" />
-            <div class="form-group">
-                <label asp-for="TapPhim" class="control-label"></label>
-                <input asp-for="TapPhim" class="form-control" />
-                <span asp-validation-for="TapPhim" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <select asp-for="Id" class="form-control" asp-items="ViewBag.Idphinm"></select>
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Link" class="control-label"></label>
-                <input asp-for="Link" class="form-control" />
-                <span asp-validation-for="Link" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-12">
+			<div class="main__title">
+				<h2>Sửa Tập Phim</h2>
+			</div>
+		</div>			
+		<div class="tab-content" id="myTabContent">
+			<div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="1-tab">
+				<div class="col-12">
+					<div class="row">
+						<div class="col-12 col-lg-6">
+							<form asp-action="Edit" class="profile__form">										
+								<div class="row">
+									<div class="col-12">
+										<h4 class="profile__title"></h4>
+									</div>
+									<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+									<div class="col-12 ">
+										<div class="profile__group">
+											<label class="profile__label" for="username">Tên Phim</label>											
+											 <select asp-for="Id" class ="form__input" asp-items="ViewBag.Id"></select>
+										</div>
+									</div>	
+									<div class="col-12">
+										<div class="profile__group">
+											<label class="profile__label" for="username">Tập Phim</label>
+											<input class="profile__input"  asp-for="TapPhim">
+											 <span asp-validation-for="TapPhim" class="text-danger"></span>           
+										</div>
+									</div>
+									<div class="col-12 ">
+										<div class="profile__group">
+											<label class="profile__label" for="username">Link Phim</label>
+											<input class="profile__input"  asp-for="Link">
+											 <span asp-validation-for="Link" class="text-danger"></span>           
+										</div>
+									</div>
+									<div class="col-12">											
+										<button class="profile__btn" type="submit">Sửa </button>	
+										<button class="profile__btn" asp-controller="AdminCttapPhims" asp-action="Index" >Trở Về</button>							
+									</div>					
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>	
+			</div>				
+		</div>			
+	</div>
 </div>
-
-<div>
-    <a asp-controller="AdminCttapPhims" asp-action="Index" asp-route-id="@Model.Id">Back to List</a>
-</div>
-

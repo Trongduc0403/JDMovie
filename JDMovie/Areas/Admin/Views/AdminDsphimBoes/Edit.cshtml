@@ -49,19 +49,22 @@
 									<div class="col-12 col-sm-6 col-lg-3">
 										<input asp-for="ThoiLuong" type="text" class="form__input" placeholder="Thời Lượng">
 									</div>
-
-									<div class="profile__group">
+								
+									<div class="col-12 col-sm-6 col-lg-3">
 										<select asp-for="IdtheLoai" class="profile__input" asp-items="ViewBag.IdtheLoai"></select>
 									</div>
-					
+									<div class="col-12 col-sm-6 col-lg-3">
+										<button class="form__btn" type="submit" >Sửa Phim</button>
+										<button class="form__btn" asp-controller="AdminDsPhimBoes" asp-action="Index">Trở Về</button>
+									</div>	
 							@{
 								try
 								{
 									<div class="col-12 col-sm-6 col-lg-3">
-										<ul class="card__meta">
-											@foreach(var item in @ViewBag.theloaip)
+										<ul class="dropdown-menu" style=" background-color: #F5F5F5; float: left;height: 200px;height: 120px;background-color: rgba(255,255,255,0.05);-webkit-border-radius: 0;border-radius: 0;margin: 0;overflow-y: scroll;">									
+										@foreach(var item in @ViewBag.theloaip)
 										{
-											<li  class="main__table-text"><span>@item.IdtheLoaiNavigation.TenTheLoai</span>  </li>
+											<li  class="profile__input"><span>@item.IdtheLoaiNavigation.TenTheLoai</span>  </li>
 										}
 										</ul>
 										
@@ -74,10 +77,7 @@
 										
 
 									
-									<div class="col-12 col-sm-6 col-lg-3">
-										<button class="form__btn" type="submit" >Sửa Phim</button>
-										<button class="form__btn" asp-controller="AdminDsPhimBoes" asp-action="Index">Trở Về</button>
-									</div>								
+																
 								</div>
 							</div>																			
 						</div>
