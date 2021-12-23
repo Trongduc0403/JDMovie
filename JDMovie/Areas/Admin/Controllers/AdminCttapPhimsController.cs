@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using JDMovie.Models;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace JDMovie.Areas.Admin.Controllers
 {
@@ -13,10 +14,12 @@ namespace JDMovie.Areas.Admin.Controllers
     public class AdminCttapPhimsController : Controller
     {
         private readonly dbDACNContext _context;
+        public INotyfService _notyfService { get; }
 
-        public AdminCttapPhimsController(dbDACNContext context)
+        public AdminCttapPhimsController(dbDACNContext context, INotyfService notyfService)
         {
             _context = context;
+            _notyfService = notyfService;
         }
 
         // GET: Admin/AdminCttapPhims
@@ -29,6 +32,8 @@ namespace JDMovie.Areas.Admin.Controllers
             var dbDACNContext = (from phim in _context.CttapPhims
                                  where phim.Id == id
                                  select phim).Include(c => c.IdNavigation);
+
+            ViewBag.Id = id;
             return View(await dbDACNContext.ToListAsync());
         }
 
@@ -52,7 +57,7 @@ namespace JDMovie.Areas.Admin.Controllers
         }
 
         // GET: Admin/AdminCttapPhims/Create
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
             ViewData["Id"] = new SelectList(_context.DsphimBos, nameof(DsphimBo.Id), nameof(DsphimBo.TenPhim));
             return View();
@@ -63,13 +68,15 @@ namespace JDMovie.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Idphim,TapPhim,Id,Link")] CttapPhim cttapPhim)
+        public async Task<IActionResult> Create(int id,[Bind("Idphim,TapPhim,Id,Link")] CttapPhim cttapPhim)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(cttapPhim);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                ViewData["Id"] = new SelectList(_context.DsphimBos, nameof(DsphimBo.Id), nameof(DsphimBo.TenPhim), cttapPhim.Id);
+                _notyfService.Success("Thêm thành công!");
+                return View(cttapPhim);
             }
             ViewData["Id"] = new SelectList(_context.DsphimBos, nameof(DsphimBo.Id), nameof(DsphimBo.TenPhim), cttapPhim.Id);
             return View(cttapPhim);
@@ -83,12 +90,14 @@ namespace JDMovie.Areas.Admin.Controllers
                 return NotFound();
             }
 
+            ViewBag.idphim = id;
+
             var cttapPhim = await _context.CttapPhims.FindAsync(id);
             if (cttapPhim == null)
             {
                 return NotFound();
             }
-            ViewData["Id"] = new SelectList(_context.DsphimBos, "Id", "Id", cttapPhim.Id);
+            ViewData["Id"] = new SelectList(_context.DsphimBos, nameof(DsphimBo.Id), nameof(DsphimBo.TenPhim), cttapPhim.Id);
             return View(cttapPhim);
         }
 
@@ -108,7 +117,7 @@ namespace JDMovie.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(cttapPhim);
+                    _context.CttapPhims.Update(cttapPhim);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -122,9 +131,11 @@ namespace JDMovie.Areas.Admin.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                var routeValue = new RouteValueDictionary(new { cttapPhim.Id, action = "Index", controller = "AdminCttapPhims" });
+
+                return RedirectToRoute(routeValue);
             }
-            ViewData["Id"] = new SelectList(_context.DsphimBos, "Id", "Id", cttapPhim.Id);
+            ViewData["Id"] = new SelectList(_context.DsphimBos, nameof(DsphimBo.Id), nameof(DsphimBo.TenPhim), cttapPhim.Id);
             return View(cttapPhim);
         }
 
@@ -155,7 +166,10 @@ namespace JDMovie.Areas.Admin.Controllers
             var cttapPhim = await _context.CttapPhims.FindAsync(id);
             _context.CttapPhims.Remove(cttapPhim);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            var routeValue = new RouteValueDictionary(new { cttapPhim.Id, action = "Index", controller = "AdminCttapPhims" });
+
+            return RedirectToRoute(routeValue);
         }
 
         private bool CttapPhimExists(int id)

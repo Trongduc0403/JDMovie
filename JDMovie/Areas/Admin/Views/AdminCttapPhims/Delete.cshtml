@@ -35,6 +35,6 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="Idphim" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <a asp-controller="AdminCttapPhims" asp-action="Index" asp-route-id="@Model.Id">Back to List</a>
     </form>
 </div>

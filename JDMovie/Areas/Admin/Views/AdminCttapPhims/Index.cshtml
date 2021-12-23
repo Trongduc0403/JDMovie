@@ -11,7 +11,8 @@
 		<div class="col-12">
 			<div class="main__title">
 				<h2>Tập phim</h2>
-				<a asp-action="Create" class="main__title-link">Thêm Tập Phim</a>
+				<a asp-action="Create" asp-route-id="@ViewBag.Id" class="main__title-link">Thêm Tập Phim</a>
+
 				<span class="main__title-stat">
 					<!--total-->
 				</span>
@@ -66,6 +67,7 @@
 						}
 					</tbody>
 				</table>
+				<a class="profile__btn" asp-controller="AdminDsphimBoes">Trở Về</a>	
 			</div>
 		</div>		
 </div>
